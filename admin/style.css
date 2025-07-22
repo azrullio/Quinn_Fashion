@@ -5,48 +5,6 @@ body {
     background: #f4f4f4;
 }
 
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 220px;
-    height: 100%;
-    background-color: #1e293b;
-    padding: 20px 1px;
-    color: #ffffff;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-}
-
-.sidebar h3 {
-    margin-top: 0;
-    color: #facc15;
-    margin-bottom: 20px;
-    font-size: 20px;
-}
-
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    margin: 10px 0;
-}
-
-.sidebar ul li a {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 16px;
-    display: block;
-    padding: 10px;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-
-.sidebar ul li a:hover {
-    background-color: #dd1212;
-}
-
 .main-content {
     margin-left: 240px;
     padding: 20px;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2025 at 05:16 AM
+-- Generation Time: Jul 22, 2025 at 04:06 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -73,9 +73,43 @@ INSERT INTO `barang` (`id`, `nama_barang`, `kategori`, `harga`, `stok`, `deskrip
 (9, 'Ember Plastik', 'Peralatan Rumah', 18000, 30, 'Ember plastik kapasitas 10 liter', 'ember.jpg', NULL, 'https://tokopedia.com/ember', NULL),
 (10, 'Mouse Wireless', 'Elektronik', 125000, 25, 'Mouse wireless 2.4GHz dengan USB receiver', 'mouse.jpg', 'https://shopee.co.id/mouse', 'https://tokopedia.com/mouse', 'https://lazada.co.id/mouse'),
 (11, 'Keyboard Gaming', 'Elektronik', 250000, 18, 'Keyboard mekanikal RGB untuk gaming', 'keyboard.jpg', 'https://shopee.co.id/keyboard', NULL, 'https://lazada.co.id/keyboard'),
-(12, 'Sabun Cuci Tangan', 'Kebutuhan Harian', 12000, 60, 'Sabun cair wangi lemon 250ml', 'sabun.jpg', NULL, NULL, 'https://lazada.co.id/sabun'),
-(13, 'Minyak Goreng 1L', 'Kebutuhan Harian', 17000, 40, 'Minyak goreng kemasan 1 liter', 'minyak.jpg', 'https://shopee.co.id/minyak', 'https://tokopedia.com/minyak', 'https://lazada.co.id/minyak'),
+(12, 'Tas Eiger', 'Kebutuhan Harian', 12000, 60, 'Sabun cair wangi lemon 250ml', 'sabun.jpg', '', '', 'https://lazada.co.id/sabun'),
 (14, 'Cangkul', 'Peralatan Pertanian', 45000, 15, 'Cangkul besi gagang kayu', 'cangkul.jpg', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kategori`
+--
+
+CREATE TABLE `kategori` (
+  `id` int(11) NOT NULL,
+  `nama_kategori` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `kategori`
+--
+
+INSERT INTO `kategori` (`id`, `nama_kategori`) VALUES
+(18, 'Baju'),
+(15, 'Jam Tangan'),
+(19, 'Mukena'),
+(16, 'Sepatu'),
+(17, 'Sepatu Sandal'),
+(14, 'Tas');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `video_iklan`
+--
+
+CREATE TABLE `video_iklan` (
+  `id` int(11) NOT NULL,
+  `judul` varchar(255) DEFAULT NULL,
+  `file_video` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -94,6 +128,19 @@ ALTER TABLE `barang`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `kategori`
+--
+ALTER TABLE `kategori`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nama_kategori` (`nama_kategori`);
+
+--
+-- Indexes for table `video_iklan`
+--
+ALTER TABLE `video_iklan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -108,6 +155,18 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `barang`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `kategori`
+--
+ALTER TABLE `kategori`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `video_iklan`
+--
+ALTER TABLE `video_iklan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

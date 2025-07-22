@@ -1,6 +1,9 @@
 <?php
-include 'inc/db.php';   
+include 'inc/db.php';
 include 'inc/sidebar.php';
+
+// Ambil kategori dari database
+$kategori_result = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori ASC");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nama = $_POST['nama_barang'];
@@ -72,7 +75,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <div class="mb-3">
                 <label class="form-label">Kategori</label>
-                <input type="text" name="kategori" class="form-control" placeholder="Contoh: Baju, Topi" required>
+                <select name="kategori" class="form-select" required>
+                    <option value="">-- Pilih Kategori --</option>
+                    <?php while ($k = mysqli_fetch_assoc($kategori_result)) : ?>
+                        <option value="<?= htmlspecialchars($k['nama_kategori']) ?>">
+                            <?= htmlspecialchars($k['nama_kategori']) ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
             </div>
             <div class="mb-3">
                 <label class="form-label">Harga</label>

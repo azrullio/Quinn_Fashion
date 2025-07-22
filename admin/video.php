@@ -9,7 +9,7 @@ include 'inc/db.php';
 // Proses tambah video
 if (isset($_POST['upload'])) {
     $judul = $_POST['judul'];
-    $link  = $_POST['link']; // optional
+    $link  = $_POST['link'];
     $video_file = $_FILES['video']['name'];
     $tmp = $_FILES['video']['tmp_name'];
     $path = '../uploads/' . $video_file;
@@ -73,13 +73,13 @@ $video = $conn->query("SELECT * FROM video_iklan ORDER BY id DESC");
         <?php $no = 1; while ($row = $video->fetch_assoc()) : ?>
         <tr>
             <td><?= $no++ ?></td>
-            <td><?= $row['judul'] ?></td>
+            <td><?= htmlspecialchars($row['judul']) ?></td>
             <td>
                 <?php if (str_contains($row['file_video'], 'http')): ?>
-                    <iframe width="200" height="120" src="<?= $row['file_video'] ?>" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="200" height="120" src="<?= htmlspecialchars($row['file_video']) ?>" frameborder="0" allowfullscreen></iframe>
                 <?php else: ?>
                     <video width="200" controls>
-                        <source src="../uploads/<?= $row['file_video'] ?>" type="video/mp4">
+                        <source src="../uploads/<?= htmlspecialchars($row['file_video']) ?>" type="video/mp4">
                     </video>
                 <?php endif; ?>
             </td>
