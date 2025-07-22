@@ -1,0 +1,150 @@
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100%;
+    background-color: #1e293b;
+    padding: 20px 1px;
+    color: #ffffff;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar h3 {
+    margin-top: 0;
+    color: #facc15;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+    background-color: #dd1212;
+}
+
+.main-content {
+    margin-left: 240px;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+
+.main-content {
+    margin-left: 220px;
+    padding: 20px;
+}
+.form-style {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.form-style label {
+    font-weight: bold;
+    color: #333;
+}
+
+.form-style input[type="text"],
+.form-style input[type="number"],
+.form-style input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.form-style .btn {
+    background-color: #4CAF50;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    width: fit-content;
+    transition: 0.3s;
+}
+
+.form-style .btn:hover {
+    background-color: #388e3c;
+}
+.scroll-wrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
+}
+
+.card {
+    display: inline-block;
+    width: 220px;
+    margin-right: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    vertical-align: top;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.card h4 {
+    margin: 10px 0 5px;
+    font-size: 16px;
+    color: #222;
+}
+
+.card p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.card-links a {
+    margin-right: 6px;
+    font-size: 13px;
+    color: white;
+    background: #ff5722;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.card-links a:hover {
+    background: #e64a19;
+}
+
+.card-action {
+    margin-top: 8px;
+    font-size: 13px;
+}
