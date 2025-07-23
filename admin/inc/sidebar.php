@@ -38,7 +38,6 @@
         border-bottom: 1px solid #555;
     }
 
-    /* Tambahkan ini jika sidebar.php tidak menyertakan <div class="main-content"> */
     .main-content {
         margin-left: 240px;
         padding: 20px;
@@ -61,5 +60,7 @@
     <h4>Admin Panel</h4>
     <a href="index.php" class="<?= basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '' ?>">Dashboard</a>
     <a href="tambah_barang.php" class="<?= basename($_SERVER['PHP_SELF']) == 'tambah_barang.php' ? 'active' : '' ?>">Tambah Barang</a>
+<a href="slider_iklan.php" class="<?= basename($_SERVER['PHP_SELF']) == 'slider_iklan.php' ? 'active' : '' ?>">Manajemen Slider Iklan</a>
+
     <a href="logout.php">Logout</a>
 </div>

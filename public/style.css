@@ -151,6 +151,88 @@ body {
     border-color: #6C757D;
 }
 
+/* --- Slider Iklan Styles --- */
+.slider-section {
+    max-width: 1000px; /* Lebar maksimum slider */
+    margin: 0 auto 50px auto; /* Pusatkan slider, jarak bawah lebih besar */
+    padding: 20px;
+    background-color: #FFFFFF; /* Latar belakang putih */
+    border-radius: 8px;
+    border: 1px solid #E9E9EB;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Bayangan lembut */
+}
+
+.slider-section h2 {
+    font-size: 1.8em; /* Ukuran judul lebih compact */
+    color: #343A40;
+    margin-bottom: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #6F6D7B; /* Garis bawah warna primer sederhana */
+}
+
+#carouselIklan {
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-item img {
+    max-height: 400px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 6px;
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 0.3rem;
+    padding: 10px 15px;
+    bottom: 20px;
+    left: 10%;
+    right: 10%;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.carousel-caption h5 {
+    color: #FFFFFF;
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 8%; /* Lebar area klik panah lebih besar */
+    opacity: 0; /* Sembunyikan panah secara default */
+    transition: opacity 0.3s ease; /* Transisi saat hover */
+}
+
+#carouselIklan:hover .carousel-control-prev,
+#carouselIklan:hover .carousel-control-next {
+    opacity: 1; /* Tampilkan panah saat hover di area carousel */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Bayangan pada ikon panah */
+    transition: background-color 0.2s ease;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    background-color: rgba(0, 0, 0, 0.6); /* Warna lebih gelap saat hover */
+}
+
+
 /* --- Video Section Styles --- */
 .video-section {
     max-width: 1100px;
@@ -603,6 +685,30 @@ body {
         display: block; /* Tombol marketplace ditumpuk */
         margin: 8px 0;
     }
+
+    /* Penyesuaian slider untuk layar kecil */
+    .slider-section {
+        padding: 15px;
+        margin-bottom: 30px;
+    }
+    .slider-section h2 {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+    .carousel-caption {
+        padding: 8px 10px;
+        bottom: 10px;
+        left: 5%;
+        right: 5%;
+        max-width: 90%;
+    }
+    .carousel-caption h5 {
+        font-size: 1em;
+    }
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        padding: 10px; /* Ukuran ikon panah lebih kecil di mobile */
+    }
 }
 
 /* Untuk ponsel (portrait) */
@@ -614,7 +720,8 @@ body {
     .search-form,
     .kategori-menu-section .card,
     .video-section,
-    .produk-section {
+    .produk-section,
+    .slider-section { /* Tambahkan slider-section di sini */
         padding-left: 10px;
         padding-right: 10px;
     }
@@ -650,5 +757,12 @@ body {
     .produk-card .btn {
         padding: 8px 12px;
         font-size: 0.8em;
+    }
+    /* Penyesuaian spesifik untuk slider di layar sangat kecil */
+    .carousel-item img {
+        max-height: 250px; /* Tinggi gambar slider lebih kecil di layar sangat kecil */
+    }
+    .carousel-caption h5 {
+        font-size: 0.9em; /* Ukuran font judul caption lebih kecil */
     }
 }
