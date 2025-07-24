@@ -8,7 +8,8 @@ include 'inc/db.php';
 include 'inc/sidebar.php'; // Jangan masukkan header di sini jika sudah pakai Bootstrap di bawah
 
 
-$barang = mysqli_query($conn, "SELECT * FROM barang");
+$barang = mysqli_query($conn, "SELECT barang.*, kategori.nama_kategori FROM barang JOIN kategori ON barang.kategori_id = kategori.id");
+
 ?>
 
 <!-- Bootstrap CDN -->
@@ -49,7 +50,7 @@ $barang = mysqli_query($conn, "SELECT * FROM barang");
     <?php
     $kategoriBarang = [];
     while ($row = mysqli_fetch_assoc($barang)) {
-        $kategoriBarang[$row['kategori']][] = $row;
+        $kategoriBarang[$row['nama_kategori']][] = $row;
     }
 
     foreach ($kategoriBarang as $kategori => $items) {

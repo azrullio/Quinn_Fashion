@@ -52,7 +52,7 @@ if (isset($_GET['hapus'])) {
 }
 
 // Ambil semua slider
-$slider = $conn->query("SELECT * FROM slider_iklan ORDER BY id DESC");
+$slider = $conn->query("SELECT * FROM video_iklan ORDER BY id DESC");
 ?>
 
 <?php include 'inc/header.php'; ?>

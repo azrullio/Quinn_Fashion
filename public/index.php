@@ -1,39 +1,68 @@
 <?php
 include '../admin/inc/db.php'; // Pastikan jalur sudah benar
 
+$kategori_filter = $_GET['nama_kategori'] ?? '';
+
+$kategori_nama = '';
+if (!empty($kategori_filter)) {
+    $stmt = $conn->prepare("SELECT nama_kategori FROM kategori WHERE id = ?");
+    $stmt->bind_param("i", $kategori_filter);
+    $stmt->execute();
+    $result_kat = $stmt->get_result();
+    if ($row_kat = $result_kat->fetch_assoc()) {
+        $kategori_nama = $row_kat['nama_kategori'];
+    }
+}
+
 // Ambil query pencarian dan filter kategori dari URL
-$search = isset($_GET['q']) ? trim($_GET['q']) : '';
-$kategori_filter = isset($_GET['kategori']) ? trim($_GET['kategori']) : '';
+$kategori_filter = isset($_GET['kategori_id']) ? (int)$_GET['kategori_id'] : null;
+$search = isset($_GET['q']) ? $_GET['q'] : '';
+
+// Build query awal
+$sql_barang = "SELECT * FROM barang";
 
 // Build kondisi WHERE untuk produk
 $conditions = [];
 if (!empty($search)) {
-    $conditions[] = "nama_barang LIKE '%" . $conn->real_escape_string($search) . "%'";
+    $search = mysqli_real_escape_string($conn, $search);
+    $conditions[] = "(nama_barang LIKE '%$search%' OR deskripsi LIKE '%$search%')";
 }
 if (!empty($kategori_filter)) {
-    $conditions[] = "kategori = '" . $conn->real_escape_string($kategori_filter) . "'";
-}
-$where_clause = '';
-if (!empty($conditions)) {
-    $where_clause = " WHERE " . implode(" AND ", $conditions);
+    $conditions[] = "kategori_id = $kategori_filter";
 }
 
-// Query produk
-$produk_query_string = "SELECT * FROM barang " . $where_clause . " ORDER BY id DESC";
-$produk = $conn->query($produk_query_string);
+// Gabungkan kondisi menjadi WHERE clause
+if (!empty($conditions)) {
+    $sql_barang .= " WHERE " . implode(" AND ", $conditions);
+}
+
+// Tambahkan urutan
+$sql_barang .= " ORDER BY id DESC";
+
+// Eksekusi query produk
+$produk = $conn->query($sql_barang);
 if ($produk === false) {
-    die('Error fetching products: ' . $conn->error . ' Query: ' . $produk_query_string);
+    die('Error fetching products: ' . $conn->error . ' Query: ' . $sql_barang);
 }
 
 // Ambil semua kategori untuk menu filter
-$semua_kategori = $conn->query("SELECT DISTINCT nama_kategori FROM kategori ORDER BY nama_kategori ASC");
+$semua_kategori = $conn->query("
+    SELECT DISTINCT k.id AS kategori_id, k.nama_kategori 
+    FROM kategori k
+    INNER JOIN barang b ON b.kategori_id = k.id
+    ORDER BY k.nama_kategori ASC
+");
 if ($semua_kategori === false) {
     die('Error fetching categories: ' . $conn->error);
 }
 
 // Ambil data slider gambar iklan
-$slider = $conn->query("SELECT * FROM slider_iklan ORDER BY id DESC");
+$slider = $conn->query("SELECT * FROM video_iklan ORDER BY id DESC");
+if ($slider === false) {
+    die('Error fetching slider data: ' . $conn->error);
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">
@@ -107,39 +136,67 @@ $slider = $conn->query("SELECT * FROM slider_iklan ORDER BY id DESC");
                     <input type="text" name="q" class="form-control me-md-3 mb-3 mb-md-0" placeholder="Cari produk..."
                         value="<?= htmlspecialchars($search) ?>" />
                     <?php if (!empty($kategori_filter)) : ?>
-                        <input type="hidden" name="kategori" value="<?= htmlspecialchars($kategori_filter) ?>" />
+                        <input type="hidden" name="kategori-id" value="<?= htmlspecialchars($kategori_filter) ?>" />
                     <?php endif; ?>
                     <button type="submit" class="btn btn-primary">Cari</button>
                 </form>
             </div>
         </section>
 
-        <section class="kategori-menu-section mb-5">
-            <div class="card p-4 shadow-sm rounded-3">
-                <h3 class="text-center mb-4 text-primary">Kategori Produk</h3>
-                <div class="d-flex flex-wrap justify-content-center gap-2">
-                    <a href="index.php?q=<?= htmlspecialchars($search) ?>"
-                        class="btn btn-outline-secondary <?= empty($kategori_filter) ? 'active' : '' ?>">Semua Produk</a>
-                    <?php while ($kat = $semua_kategori->fetch_assoc()) : ?>
-                        <?php
-                        $active_class = ($kategori_filter == $kat['nama_kategori']) ? 'active' : '';
-                        $kategori_link = "index.php?kategori=" . urlencode($kat['nama_kategori']);
-                        if (!empty($search)) {
-                            $kategori_link .= "&q=" . urlencode($search);
-                        }
-                        ?>
-                        <a href="<?= $kategori_link ?>" class="btn btn-outline-primary <?= $active_class ?>">
-                            <?= htmlspecialchars($kat['nama_kategori']) ?>
-                        </a>
-                    <?php endwhile; ?>
-                </div>
-            </div>
-        </section>
+<section class="kategori-menu-section mb-5">
+    <div class="card p-4 shadow-sm rounded-3">
+        <h3 class="text-center mb-4 text-primary">Kategori Produk</h3>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+            <!-- Tombol Semua Produk -->
+            <!-- Tombol Semua Produk -->
+<a href="index.php<?= !empty($search) ? '?q=' . urlencode($search) : '' ?>"
+   class="btn btn-outline-secondary <?= empty($kategori_filter) ? 'active' : '' ?>">
+   Semua Produk
+</a>
+
+<!-- Tombol Filter Per Kategori -->
+<?php while ($kat = $semua_kategori->fetch_assoc()) : ?>
+    <?php
+        $is_active = ($kategori_filter == $kat['nama_kategori']) ? 'active' : '';
+
+        // Buat base URL
+        $kategori_link = "index.php?kategori_id=" . urlencode($kat['kategori_id']);
+
+        // Tambahkan query pencarian jika ada
+        if (!empty($search)) {
+            $kategori_link .= "&q=" . urlencode($search);
+        }
+    ?>
+    <a href="<?= $kategori_link ?>" class="btn btn-outline-primary <?= $is_active ?>">
+        <?= htmlspecialchars($kat['nama_kategori']) ?>
+    </a>
+<?php endwhile; ?>
+
+
+
+        </div>
+    </div>
+</section>
+
+
 
         <section class="produk-section">
             <?php if (!empty($kategori_filter)) : ?>
-                <h3 class="text-center mb-4 text-secondary">Menampilkan Produk Kategori: "<?= htmlspecialchars($kategori_filter) ?>"
-                </h3>
+    <?php
+    // Ambil nama kategori dari database berdasarkan kategori_id
+    $stmt_kat_nama = $conn->prepare("SELECT nama_kategori FROM kategori WHERE id = ?");
+    $stmt_kat_nama->bind_param("i", $kategori_filter);
+    $stmt_kat_nama->execute();
+    $result_kat_nama = $stmt_kat_nama->get_result();
+    $nama_kategori_terpilih = '';
+    if ($row_kat_nama = $result_kat_nama->fetch_assoc()) {
+        $nama_kategori_terpilih = $row_kat_nama['nama_kategori'];
+    }
+    ?>
+    <h3 class="text-center mb-4 text-secondary">
+        Menampilkan Produk Kategori: "<strong><?= htmlspecialchars($nama_kategori_terpilih) ?></strong>"
+    </h3>
+
             <?php elseif (!empty($search)) : ?>
                 <h3 class="text-center mb-4 text-secondary">Hasil Pencarian untuk: "<?= htmlspecialchars($search) ?>"
                 </h3>

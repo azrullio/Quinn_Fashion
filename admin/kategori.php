@@ -9,7 +9,7 @@ include 'inc/db.php';
 // Tambah kategori
 if (isset($_POST['tambah'])) {
     $nama = trim($_POST['nama']);
-    // Cek duplikat
+    // Cek duplikat berdasarkan nama kategori
     $cek = mysqli_query($conn, "SELECT * FROM kategori WHERE nama_kategori='$nama'");
     if (mysqli_num_rows($cek) == 0) {
         mysqli_query($conn, "INSERT INTO kategori (nama_kategori) VALUES ('$nama')");
@@ -22,19 +22,19 @@ if (isset($_POST['tambah'])) {
 
 // Hapus kategori
 if (isset($_GET['hapus'])) {
-    $id = $_GET['hapus'];
+    $id = intval($_GET['hapus']);
     mysqli_query($conn, "DELETE FROM kategori WHERE id=$id");
     header("Location: kategori.php?hapus=1");
     exit;
 }
 
-// Ambil semua kategori
-$kategori = mysqli_query($conn, "SELECT * FROM kategori ORDER BY id DESC");
+// Ambil semua kategori, urut berdasarkan nama kategori
+$kategori = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori ASC");
 ?>
 
 <?php include 'inc/header.php'; ?>
 <?php include 'inc/sidebar.php'; ?>
-<div class="content">
+<div class="main-content">
     <h2>Manajemen Kategori</h2>
 
     <?php if (isset($_GET['add'])) echo "<p style='color:green;'>Kategori berhasil ditambahkan!</p>"; ?>

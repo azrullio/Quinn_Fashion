@@ -7,7 +7,7 @@ if (!isset($_SESSION['admin'])) {
 include 'inc/db.php';
 include 'inc/sidebar.php';
 
-$id = $_GET['id'];
+$id = intval($_GET['id']); // konversi ke integer
 $result = mysqli_query($conn, "SELECT * FROM barang WHERE id=$id");
 $data = mysqli_fetch_assoc($result);
 
@@ -29,17 +29,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $gambar = $data['gambar'];
     }
 
-    mysqli_query($conn, "UPDATE barang SET 
-        nama_barang='$nama', 
-        kategori='$kategori', 
-        harga='$harga', 
-        stok='$stok', 
-        deskripsi='$deskripsi',
-        link_shopee='$shopee',
-        link_tokopedia='$tokopedia',
-        link_lazada='$lazada',
-        gambar='$gambar' 
-        WHERE id=$id");
+  $update = mysqli_query($conn, "UPDATE barang SET 
+    nama_barang='$nama',
+    kategori='$kategori
+    harga='$harga',
+    stok='$stok',
+    gambar='$gambar',
+    deskripsi='$deskripsi',
+    link_shopee='$shopee',
+    link_tokopedia='$tokopedia',
+    link_lazada='$lazada','
+WHERE id=$id");
+
+
 
     header("Location: index.php");
     exit;
@@ -98,10 +100,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label class="form-label">Nama Barang</label>
                 <input type="text" class="form-control" name="nama_barang" value="<?= $data['nama_barang'] ?>" required>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Kategori</label>
-                <input type="text" class="form-control" name="kategori" value="<?= $data['kategori'] ?>" required>
-            </div>
+<?php
+$kategori_list = mysqli_query($conn, "SELECT * FROM kategori ORDER BY kategori ASC");
+?>
+
+<div class="mb-3">
+    <label class="form-label">Kategori</label>
+    <select name="kategori" class="form-select" required>
+        <option value="">-- Pilih Kategori --</option>
+        <?php while ($k = mysqli_fetch_assoc($kategori_list)) : ?>
+            <option value="<?= $k['id'] ?>" <?= $data['kategori'] == $k['id'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($k['kategori']) ?>
+            </option>
+        <?php endwhile; ?>
+    </select>
+</div>
+
             <div class="mb-3">
                 <label class="form-label">Harga</label>
                 <input type="number" class="form-control" name="harga" value="<?= $data['harga'] ?>" required>
