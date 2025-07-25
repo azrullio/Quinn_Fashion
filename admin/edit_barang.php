@@ -29,17 +29,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $gambar = $data['gambar'];
     }
 
-  $update = mysqli_query($conn, "UPDATE barang SET 
+$update = mysqli_query($conn, "UPDATE barang SET 
     nama_barang='$nama',
-    kategori='$kategori
+    kategori_id='$kategori',
     harga='$harga',
     stok='$stok',
     gambar='$gambar',
     deskripsi='$deskripsi',
     link_shopee='$shopee',
     link_tokopedia='$tokopedia',
-    link_lazada='$lazada','
+    link_lazada='$lazada'
 WHERE id=$id");
+
 
 
 
@@ -101,7 +102,7 @@ WHERE id=$id");
                 <input type="text" class="form-control" name="nama_barang" value="<?= $data['nama_barang'] ?>" required>
             </div>
 <?php
-$kategori_list = mysqli_query($conn, "SELECT * FROM kategori ORDER BY kategori ASC");
+$kategori_list = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori ASC");
 ?>
 
 <div class="mb-3">
@@ -109,8 +110,8 @@ $kategori_list = mysqli_query($conn, "SELECT * FROM kategori ORDER BY kategori A
     <select name="kategori" class="form-select" required>
         <option value="">-- Pilih Kategori --</option>
         <?php while ($k = mysqli_fetch_assoc($kategori_list)) : ?>
-            <option value="<?= $k['id'] ?>" <?= $data['kategori'] == $k['id'] ? 'selected' : '' ?>>
-                <?= htmlspecialchars($k['kategori']) ?>
+            <option value="<?= $k['id'] ?>" <?= $data['kategori_id'] == $k['id'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($k['nama_kategori']) ?>
             </option>
         <?php endwhile; ?>
     </select>

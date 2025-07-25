@@ -215,7 +215,7 @@ if ($slider === false) {
                             <div class="card-body p-4 pt-0">
                                 <h4 class="card-title"><?= htmlspecialchars($p['nama_barang']) ?></h4>
                                 <p class="card-text"><strong>Rp <?= number_format($p['harga'], 0, ',', '.') ?></strong></p>
-                                <p class="card-text"><small>Kategori: <?= htmlspecialchars($p['kategori']) ?></small></p>
+                                <p class="card-text"><small>Kategori: <?= htmlspecialchars($p['kategori_id']) ?></small></p>
                                 <a href="detail.php?id=<?= htmlspecialchars($p['id']) ?>" class="btn btn-info d-block mb-2">Lihat
                                     Detail</a>
 
@@ -246,15 +246,13 @@ if ($slider === false) {
                     <p class="col-12 text-center alert alert-info">Produk tidak ditemukan untuk kriteria ini.</p>
                 <?php endif; ?>
             </div>
+            
         </section>
 
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; <?= date('Y') ?> Quinn Fashion. Semua Hak Dilindungi.</p>
-        </div>
-    </footer>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -271,6 +269,8 @@ if ($slider === false) {
             });
         });
     </script>
+
 </body>
 
 </html>
+
