@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2025 at 07:42 AM
+-- Generation Time: Jul 25, 2025 at 05:01 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -65,8 +65,8 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id`, `nama_barang`, `harga`, `stok`, `gambar`, `deskripsi`, `link_shopee`, `link_lazada`, `link_tokopedia`, `created_at`, `kategori_id`) VALUES
-(1, 'Gamis Brokat Premium', 250000, 20, 'gamis1.jpg', 'Gamis brokat dengan bahan premium, nyaman dipakai.', 'https://shopee.co.id/gamis123', 'https://www.lazada.co.id/gamis123', 'https://www.tokopedia.com/gamis123', '2025-07-24 03:49:25', NULL),
-(2, 'Hijab Segi Empat', 55000, 40, 'hijab1.jpg', 'Hijab segi empat motif elegan.', 'https://shopee.co.id/hijab123', 'https://www.lazada.co.id/hijab123', 'https://www.tokopedia.com/hijab123', '2025-07-24 03:58:31', 2),
+(1, 'Gamis Brokat Premium', 250000, 20, 'gamis1.jpg', 'Gamis brokat dengan bahan premium, nyaman dipakai.', 'https://shopee.co.id/gamis123', 'https://www.lazada.co.id/gamis123', 'https://www.tokopedia.com/gamis123', '2025-07-24 03:49:25', 9),
+(2, 'Hijab Segi Empat', 55000, 40, '2c390b7ee6c6a6858a81034dc0eed93b.jpg', 'Hijab segi empat motif elegan.', 'https://shopee.co.id/hijab123', 'https://www.lazada.co.id/hijab123', 'https://www.tokopedia.com/hijab123', '2025-07-24 03:58:31', 2),
 (3, 'SoftCase Iphone 17 pro max', 600000, 200, 'papan_tulis.png', 'Ini adalah softcase baru', 'https://shopee.co.id/Makanan-Minuman-cat.11043451', 'https://shopee.co.id/Makanan-Minuman-cat.11043451', 'https://shopee.co.id/Makanan-Minuman-cat.11043451', '2025-07-24 04:17:05', 3),
 (4, 'Glasses', 23000, 56, 'papan_tulis.png', 'jskakzkankwdqknxkabxnja', 'https://shopee.co.id/Makanan-Minuman-cat.11043451', 'https://shopee.co.id/Makanan-Minuman-cat.11043451', 'https://shopee.co.id/Makanan-Minuman-cat.11043451', '2025-07-24 04:23:35', 5),
 (5, 'Kacamata Trendy Wanita', 150000, 20, 'kacamata1.jpg', 'Kacamata wanita model kekinian UV protection', 'https://shopee.co.id/kacamata1', 'https://www.lazada.co.id/kacamata1', 'https://www.tokopedia.com/kacamata1', '2025-07-24 05:24:17', 5),
@@ -74,15 +74,10 @@ INSERT INTO `barang` (`id`, `nama_barang`, `harga`, `stok`, `gambar`, `deskripsi
 (7, 'Kacamata Retro Wanita', 160000, 22, 'kacamata3.jpg', 'Desain retro cocok untuk gaya vintage', 'https://shopee.co.id/kacamata3', 'https://www.lazada.co.id/kacamata3', 'https://www.tokopedia.com/kacamata3', '2025-07-24 05:24:17', 5),
 (8, 'Kacamata Sporty', 140000, 15, 'kacamata4.jpg', 'Kacamata untuk aktivitas luar ruangan', 'https://shopee.co.id/kacamata4', 'https://www.lazada.co.id/kacamata4', 'https://www.tokopedia.com/kacamata4', '2025-07-24 05:24:17', 5),
 (9, 'Kacamata Frame Transparan', 120000, 25, 'kacamata5.jpg', 'Frame ringan dan stylish', 'https://shopee.co.id/kacamata5', 'https://www.lazada.co.id/kacamata5', 'https://www.tokopedia.com/kacamata5', '2025-07-24 05:24:17', 5),
-(10, 'Gamis Brokat Elegan', 275000, 15, 'gamis1.jpg', 'Gamis brokat elegan untuk pesta dan lebaran', 'https://shopee.co.id/gamis1', 'https://www.lazada.co.id/gamis1', 'https://www.tokopedia.com/gamis1', '2025-07-24 05:24:17', 1),
-(11, 'Gamis Syar’i Polos', 200000, 20, 'gamis2.jpg', 'Gamis polos bahan adem dan tidak menerawang', 'https://shopee.co.id/gamis2', 'https://www.lazada.co.id/gamis2', 'https://www.tokopedia.com/gamis2', '2025-07-24 05:24:17', 1),
-(12, 'Gamis Rempel Motif Bunga', 235000, 12, 'gamis3.jpg', 'Gamis dengan rempel bawah dan motif bunga cantik', 'https://shopee.co.id/gamis3', 'https://www.lazada.co.id/gamis3', 'https://www.tokopedia.com/gamis3', '2025-07-24 05:24:17', 1),
-(13, 'Gamis Denim Casual', 210000, 10, 'gamis4.jpg', 'Gamis berbahan denim cocok untuk kegiatan santai', 'https://shopee.co.id/gamis4', 'https://www.lazada.co.id/gamis4', 'https://www.tokopedia.com/gamis4', '2025-07-24 05:24:17', 1),
-(14, 'Gamis Kombinasi Renda', 290000, 8, 'gamis5.jpg', 'Gamis elegan dengan tambahan renda pada bagian lengan', 'https://shopee.co.id/gamis5', 'https://www.lazada.co.id/gamis5', 'https://www.tokopedia.com/gamis5', '2025-07-24 05:24:17', 1),
-(15, 'Hijab Segi Empat Polos', 45000, 30, 'hijab1.jpg', 'Hijab bahan voal polos adem nyaman', 'https://shopee.co.id/hijab1', 'https://www.lazada.co.id/hijab1', 'https://www.tokopedia.com/hijab1', '2025-07-24 05:24:17', 2),
-(16, 'Hijab Instan Jersey', 50000, 35, 'hijab2.jpg', 'Hijab instan tanpa jarum dan mudah dipakai', 'https://shopee.co.id/hijab2', 'https://www.lazada.co.id/hijab2', 'https://www.tokopedia.com/hijab2', '2025-07-24 05:24:17', 2),
-(17, 'Hijab Pashmina Ceruty', 55000, 28, 'hijab3.jpg', 'Pashmina bahan ceruty ringan dan jatuh', 'https://shopee.co.id/hijab3', 'https://www.lazada.co.id/hijab3', 'https://www.tokopedia.com/hijab3', '2025-07-24 05:24:17', 2),
-(18, 'Hijab Polos Ultrafine', 47000, 32, 'hijab4.jpg', 'Hijab dengan bahan ultrafine premium', 'https://shopee.co.id/hijab4', 'https://www.lazada.co.id/hijab4', 'https://www.tokopedia.com/hijab4', '2025-07-24 05:24:17', 2),
+(15, 'Hijab Segi Empat Polos', 45000, 30, '5f8ab2944a66493c938c7c6611ec4068.jpg', 'Hijab bahan voal polos adem nyaman', 'https://shopee.co.id/hijab1', 'https://www.lazada.co.id/hijab1', 'https://www.tokopedia.com/hijab1', '2025-07-24 05:24:17', 2),
+(16, 'Hijab Instan Jersey', 50000, 35, 'a098b8861eae7152220fe1319cf96cf7.jpg', 'Hijab instan tanpa jarum dan mudah dipakai', 'https://shopee.co.id/hijab2', 'https://www.lazada.co.id/hijab2', 'https://www.tokopedia.com/hijab2', '2025-07-24 05:24:17', 2),
+(17, 'Hijab Pashmina Ceruty', 55000, 28, 'c6ae9efa799708c6a8b050eb82944717.jpg', 'Pashmina bahan ceruty ringan dan jatuh', 'https://shopee.co.id/hijab3', 'https://www.lazada.co.id/hijab3', 'https://www.tokopedia.com/hijab3', '2025-07-24 05:24:17', 2),
+(18, 'Hijab Polos Ultrafine', 47000, 32, 'e0d3b0ea8a1c01fadadc26f592618d5a.jpg', 'Hijab dengan bahan ultrafine premium', 'https://shopee.co.id/hijab4', 'https://www.lazada.co.id/hijab4', 'https://www.tokopedia.com/hijab4', '2025-07-24 05:24:17', 2),
 (19, 'Hijab Motif Bunga', 60000, 25, 'hijab5.jpg', 'Hijab motif floral untuk gaya feminin', 'https://shopee.co.id/hijab5', 'https://www.lazada.co.id/hijab5', 'https://www.tokopedia.com/hijab5', '2025-07-24 05:24:17', 2),
 (20, 'Dress Wanita Casual', 190000, 10, 'dress1.jpg', 'Dress wanita santai cocok untuk hangout', 'https://shopee.co.id/dress1', 'https://www.lazada.co.id/dress1', 'https://www.tokopedia.com/dress1', '2025-07-24 05:24:17', 4),
 (21, 'Dress A-Line Motif', 225000, 14, 'dress2.jpg', 'Dress A-line dengan motif menarik', 'https://shopee.co.id/dress2', 'https://www.lazada.co.id/dress2', 'https://www.tokopedia.com/dress2', '2025-07-24 05:24:17', 4),
@@ -111,11 +106,35 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`id`, `nama_kategori`) VALUES
-(1, 'Gamis'),
 (2, 'Hijab'),
 (3, 'Aksesoris'),
 (4, 'Dress'),
-(5, 'Kacamata');
+(5, 'Kacamata'),
+(8, 'tas'),
+(9, 'Gamis');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `keuangan`
+--
+
+CREATE TABLE `keuangan` (
+  `id` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `keterangan` varchar(255) DEFAULT NULL,
+  `nominal` double NOT NULL,
+  `jenis` enum('pemasukan','pengeluaran') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `keuangan`
+--
+
+INSERT INTO `keuangan` (`id`, `tanggal`, `keterangan`, `nominal`, `jenis`) VALUES
+(1, '2025-07-01', 'gaji', 200000, 'pemasukan'),
+(2, '2025-07-01', 'beli sapu', 10000, 'pengeluaran'),
+(3, '2025-07-25', 'gaji', 2000000, 'pemasukan');
 
 -- --------------------------------------------------------
 
@@ -153,6 +172,12 @@ ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `keuangan`
+--
+ALTER TABLE `keuangan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `video_iklan`
 --
 ALTER TABLE `video_iklan`
@@ -172,13 +197,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `keuangan`
+--
+ALTER TABLE `keuangan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `video_iklan`
