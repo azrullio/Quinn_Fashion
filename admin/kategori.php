@@ -103,7 +103,7 @@ $kategori = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori A
         width: 100%;
         border-collapse: collapse;
         background: white;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         border-radius: 8px;
         overflow: hidden;
     }
@@ -162,7 +162,7 @@ $kategori = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori A
         border-radius: 8px;
         margin-bottom: 1.5rem;
         font-weight: 500;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
     }
 
     .success {
@@ -223,7 +223,7 @@ $kategori = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori A
         width: 100%;
         border-collapse: collapse;
         background: white;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
         border-radius: 12px;
         overflow: hidden;
     }
@@ -290,16 +290,18 @@ $kategori = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori A
             </tr>
         </thead>
         <tbody>
-            <?php $no = 1; while ($row = mysqli_fetch_assoc($kategori)) : ?>
-            <tr>
-                <td><?= $no++ ?></td>
-                <td><?= htmlspecialchars($row['nama_kategori']) ?></td>
-                <td>
-                    <a href="kategori.php?hapus=<?= $row['id'] ?>" onclick="return confirm('Hapus kategori ini?')">Hapus</a>
-                </td>
-            </tr>
+            <?php $no = 1;
+            while ($row = mysqli_fetch_assoc($kategori)) : ?>
+                <tr>
+                    <td><?= $no++ ?></td>
+                    <td><?= htmlspecialchars($row['nama_kategori']) ?></td>
+                    <td>
+                        <a href="edit_kategori.php?id=<?= $row['id'] ?>">Edit</a> |
+                        <a href="kategori.php?hapus=<?= $row['id'] ?>" onclick="return confirm('Hapus kategori ini?')">Hapus</a>
+                    </td>
+
+                </tr>
             <?php endwhile; ?>
         </tbody>
     </table>
 </div>
-

@@ -6,7 +6,7 @@ if (!isset($_SESSION['admin'])) {
 }
 include 'inc/db.php';
 
-// Proses tambah slider
+// Tambah slider
 if (isset($_POST['upload'])) {
     $judul = $conn->real_escape_string($_POST['judul']);
     $gambar_file = $_FILES['gambar']['name'];
@@ -14,7 +14,6 @@ if (isset($_POST['upload'])) {
     $path = '../uploads/' . basename($gambar_file);
 
     if (!empty($gambar_file)) {
-        // Validasi file gambar (optional)
         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
         $file_type = mime_content_type($tmp);
 
@@ -27,17 +26,16 @@ if (isset($_POST['upload'])) {
                 $error = "Gagal mengupload file.";
             }
         } else {
-            $error = "Format file tidak didukung. Gunakan JPG, PNG, atau GIF.";
+            $error = "Format file tidak didukung.";
         }
     } else {
-        $error = "Silakan pilih file gambar.";
+        $error = "Silakan pilih gambar.";
     }
 }
 
-// Proses hapus slider
+// Hapus slider
 if (isset($_GET['hapus'])) {
     $id = (int)$_GET['hapus'];
-    // Ambil nama file dulu untuk dihapus dari folder
     $result = $conn->query("SELECT file_gambar FROM slider_iklan WHERE id=$id");
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -51,8 +49,32 @@ if (isset($_GET['hapus'])) {
     exit;
 }
 
-// Ambil semua slider
-$slider = $conn->query("SELECT * FROM video_iklan ORDER BY id DESC");
+// Edit slider (update)
+if (isset($_POST['edit'])) {
+    $id = (int)$_POST['id'];
+    $judul = $conn->real_escape_string($_POST['judul']);
+    $gambar_file = $_FILES['gambar']['name'];
+    $tmp = $_FILES['gambar']['tmp_name'];
+
+    if (!empty($gambar_file)) {
+        $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+        $file_type = mime_content_type($tmp);
+
+        if (in_array($file_type, $allowed_types)) {
+            $path = '../uploads/' . basename($gambar_file);
+            if (move_uploaded_file($tmp, $path)) {
+                $conn->query("UPDATE slider_iklan SET judul='$judul', file_gambar='$gambar_file' WHERE id=$id");
+            }
+        }
+    } else {
+        $conn->query("UPDATE slider_iklan SET judul='$judul' WHERE id=$id");
+    }
+
+    header("Location: slider_iklan.php?edited=1");
+    exit;
+}
+
+$slider = $conn->query("SELECT * FROM slider_iklan ORDER BY id DESC");
 ?>
 
 <?php include 'inc/header.php'; ?>
@@ -63,10 +85,10 @@ $slider = $conn->query("SELECT * FROM video_iklan ORDER BY id DESC");
 
     <?php if (isset($_GET['success'])): ?>
         <div style="color: green;">Slider berhasil ditambahkan!</div>
-    <?php endif; ?>
-
-    <?php if (isset($_GET['deleted'])): ?>
+    <?php elseif (isset($_GET['deleted'])): ?>
         <div style="color: red;">Slider berhasil dihapus!</div>
+    <?php elseif (isset($_GET['edited'])): ?>
+        <div style="color: blue;">Slider berhasil diubah!</div>
     <?php endif; ?>
 
     <?php if (isset($error)): ?>
@@ -97,12 +119,37 @@ $slider = $conn->query("SELECT * FROM video_iklan ORDER BY id DESC");
                 <tr>
                     <td><?= $no++ ?></td>
                     <td><?= htmlspecialchars($row['judul']) ?></td>
-                    <td><img src="../uploads/<?= htmlspecialchars($row['file_gambar']) ?>" alt="<?= htmlspecialchars($row['judul']) ?>" style="max-width: 200px;"></td>
+                    <td><img src="../uploads/<?= htmlspecialchars($row['file_gambar']) ?>" style="max-width: 150px;"></td>
                     <td>
+                        <a href="#" onclick="editSlider(<?= $row['id'] ?>, '<?= htmlspecialchars(addslashes($row['judul'])) ?>')">Edit</a> |
                         <a href="?hapus=<?= $row['id'] ?>" onclick="return confirm('Hapus slide ini?')">Hapus</a>
                     </td>
                 </tr>
             <?php endwhile; ?>
         </tbody>
     </table>
+
+    <!-- Modal Edit -->
+    <div id="editModal" style="display:none; margin-top: 2rem;">
+        <h3>Edit Slider</h3>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id" id="editId">
+            <label>Judul</label><br>
+            <input type="text" name="judul" id="editJudul" required style="width: 300px; padding: 8px; margin-bottom: 1rem;"><br>
+
+            <label>Ganti Gambar (opsional)</label><br>
+            <input type="file" name="gambar" accept="image/*" style="margin-bottom: 1rem;"><br>
+
+            <button type="submit" name="edit" style="padding: 10px 20px;">Simpan Perubahan</button>
+            <button type="button" onclick="document.getElementById('editModal').style.display='none'">Batal</button>
+        </form>
+    </div>
 </div>
+
+<script>
+function editSlider(id, judul) {
+    document.getElementById('editModal').style.display = 'block';
+    document.getElementById('editId').value = id;
+    document.getElementById('editJudul').value = judul;
+}
+</script>

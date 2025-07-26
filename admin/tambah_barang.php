@@ -8,12 +8,13 @@ $kategori_result = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kat
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nama = $_POST['nama_barang'];
     $kategori_nama = $_POST['kategori'];
-    $harga = $_POST['harga'];
+    $harga = str_replace('.', '', $_POST['harga']);
     $stok = $_POST['stok'];
     $deskripsi = $_POST['deskripsi'];
     $link_shopee = $_POST['link_shopee'];
     $link_lazada = $_POST['link_lazada'];
     $link_tokopedia = $_POST['link_tokopedia'];
+    $promo = $_POST['promo'] ?? '';
 
     $result = mysqli_query($conn, "SELECT id FROM kategori WHERE nama_kategori = '$kategori_nama'");
     $row = mysqli_fetch_assoc($result);
@@ -26,10 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     mysqli_query($conn, "
         INSERT INTO barang (
             nama_barang, kategori_id, harga, stok, gambar, deskripsi,
-            link_shopee, link_lazada, link_tokopedia
+            link_shopee, link_lazada, link_tokopedia, promo
         ) VALUES (
             '$nama', '$kategori_id', '$harga', '$stok', '$gambar', '$deskripsi',
-            '$link_shopee', '$link_lazada', '$link_tokopedia'
+            '$link_shopee', '$link_lazada', '$link_tokopedia', '$promo'
         )
     ");
 
@@ -130,7 +131,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <div class="mb-3">
                 <label class="form-label">Harga</label>
-                <input type="number" name="harga" class="form-control" required>
+                <input type="text" name="harga" id="harga" class="form-control" required oninput="formatRupiah(this)">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Promo</label>
+                <input type="text" name="promo" class="form-control" placeholder="Contoh: Gratis Ongkir, Beli 1 Gratis 1">
             </div>
 
             <div class="mb-3">
@@ -167,3 +173,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
     </div>
 </div>
+
+<script>
+function formatRupiah(input) {
+    let angka = input.value.replace(/[^,\d]/g, "").toString();
+    let split = angka.split(",");
+    let sisa = split[0].length % 3;
+    let rupiah = split[0].substr(0, sisa);
+    let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    if (ribuan) {
+        let separator = sisa ? "." : "";
+        rupiah += separator + ribuan.join(".");
+    }
+
+    input.value = split[1] !== undefined ? rupiah + "," + split[1] : rupiah;
+}
+</script>

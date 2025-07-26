@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $shopee = $_POST['shopee'];
     $tokopedia = $_POST['tokopedia'];
     $lazada = $_POST['lazada'];
+    $promo = $_POST['promo'] ?? '';
 
     if ($_FILES['gambar']['name']) {
         $gambar = $_FILES['gambar']['name'];
@@ -29,20 +30,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $gambar = $data['gambar'];
     }
 
-$update = mysqli_query($conn, "UPDATE barang SET 
-    nama_barang='$nama',
-    kategori_id='$kategori',
-    harga='$harga',
-    stok='$stok',
-    gambar='$gambar',
-    deskripsi='$deskripsi',
-    link_shopee='$shopee',
-    link_tokopedia='$tokopedia',
-    link_lazada='$lazada'
-WHERE id=$id");
-
-
-
+    $update = mysqli_query($conn, "UPDATE barang SET 
+        nama_barang='$nama',
+        kategori_id='$kategori',
+        harga='$harga',
+        stok='$stok',
+        gambar='$gambar',
+        deskripsi='$deskripsi',
+        link_shopee='$shopee',
+        link_tokopedia='$tokopedia',
+        link_lazada='$lazada',
+        promo='$promo'
+    WHERE id=$id");
 
     header("Location: index.php");
     exit;
@@ -99,8 +98,9 @@ WHERE id=$id");
         <form method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Nama Barang</label>
-                <input type="text" class="form-control" name="nama_barang" value="<?= $data['nama_barang'] ?>" required>
+                <input type="text" class="form-control" name="nama_barang" value="<?= htmlspecialchars($data['nama_barang']) ?>" required>
             </div>
+
 <?php
 $kategori_list = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori ASC");
 ?>
@@ -119,36 +119,49 @@ $kategori_list = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kateg
 
             <div class="mb-3">
                 <label class="form-label">Harga</label>
-                <input type="number" class="form-control" name="harga" value="<?= $data['harga'] ?>" required>
+                <input type="number" class="form-control" name="harga" value="<?= htmlspecialchars($data['harga']) ?>" required>
             </div>
+
+            <div class="mb-3">
+                <label class="form-label">Promo</label>
+                <input type="text" class="form-control" name="promo" value="<?= htmlspecialchars($data['promo']) ?>">
+            </div>
+
             <div class="mb-3">
                 <label class="form-label">Stok</label>
-                <input type="number" class="form-control" name="stok" value="<?= $data['stok'] ?>" required>
+                <input type="number" class="form-control" name="stok" value="<?= htmlspecialchars($data['stok']) ?>" required>
             </div>
+
             <div class="mb-3">
                 <label class="form-label">Deskripsi</label>
-                <textarea class="form-control" name="deskripsi" rows="4"><?= $data['deskripsi'] ?></textarea>
+                <textarea class="form-control" name="deskripsi" rows="4"><?= htmlspecialchars($data['deskripsi']) ?></textarea>
             </div>
+
             <div class="mb-3">
                 <label class="form-label">Link Shopee</label>
-                <input type="text" class="form-control" name="shopee" value="<?= $data['link_shopee'] ?>">
+                <input type="text" class="form-control" name="shopee" value="<?= htmlspecialchars($data['link_shopee']) ?>">
             </div>
+
             <div class="mb-3">
                 <label class="form-label">Link Tokopedia</label>
-                <input type="text" class="form-control" name="tokopedia" value="<?= $data['link_tokopedia'] ?>">
+                <input type="text" class="form-control" name="tokopedia" value="<?= htmlspecialchars($data['link_tokopedia']) ?>">
             </div>
+
             <div class="mb-3">
                 <label class="form-label">Link Lazada</label>
-                <input type="text" class="form-control" name="lazada" value="<?= $data['link_lazada'] ?>">
+                <input type="text" class="form-control" name="lazada" value="<?= htmlspecialchars($data['link_lazada']) ?>">
             </div>
+
             <div class="mb-3">
                 <label class="form-label">Gambar Saat Ini</label><br>
-                <img src="img/<?= $data['gambar'] ?>" alt="Gambar Barang">
+                <img src="img/<?= htmlspecialchars($data['gambar']) ?>" alt="Gambar Barang">
             </div>
+
             <div class="mb-3">
                 <label class="form-label">Upload Gambar Baru (opsional)</label>
                 <input type="file" class="form-control" name="gambar">
             </div>
+
             <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
         </form>
     </div>

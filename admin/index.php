@@ -5,11 +5,9 @@ if (!isset($_SESSION['admin'])) {
     exit;
 }
 include 'inc/db.php';
-include 'inc/sidebar.php'; // Jangan masukkan header di sini jika sudah pakai Bootstrap di bawah
-
+include 'inc/sidebar.php';
 
 $barang = mysqli_query($conn, "SELECT barang.*, kategori.nama_kategori FROM barang JOIN kategori ON barang.kategori_id = kategori.id");
-
 ?>
 
 <!-- Bootstrap CDN -->
@@ -50,6 +48,7 @@ $barang = mysqli_query($conn, "SELECT barang.*, kategori.nama_kategori FROM bara
         overflow: hidden;
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         transition: transform 0.2s ease, box-shadow 0.3s ease;
+        position: relative; /* pastikan posisi relative untuk badge */
     }
 
     .product-card:hover {
@@ -71,6 +70,22 @@ $barang = mysqli_query($conn, "SELECT barang.*, kategori.nama_kategori FROM bara
         padding: 0.25rem 0.6rem;
         font-size: 0.75rem;
         border-radius: 8px;
+    }
+
+    /* Tambahan style untuk badge PROMO */
+    .badge-promo {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #dc3545; /* merah bootstrap */
+        color: white;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border-radius: 8px;
+        z-index: 10;
+        text-transform: uppercase;
+        box-shadow: 0 0 6px rgba(220, 53, 69, 0.7);
     }
 
     .btn-outline-danger:hover,
@@ -104,8 +119,14 @@ $barang = mysqli_query($conn, "SELECT barang.*, kategori.nama_kategori FROM bara
         echo "<h4>$kategori</h4>";
         echo "<div class='scrolling-wrapper'>";
         foreach ($items as $row) {
+            echo "<div class='card product-card'>";
+            
+            // Tampilkan badge PROMO jika kolom promo tidak kosong
+            if (!empty(trim($row['promo']))) {
+                echo "<span class='badge-promo'>PROMO</span>";
+            }
+
             echo "
-            <div class='card product-card position-relative'>
                 <img src='img/{$row['gambar']}' class='card-img-top' alt='Gambar'>
                 <span class='badge-kategori'>{$kategori}</span>
                 <div class='card-body'>
@@ -123,8 +144,7 @@ $barang = mysqli_query($conn, "SELECT barang.*, kategori.nama_kategori FROM bara
                         <a href='hapus_barang.php?id={$row['id']}' onclick=\"return confirm('Yakin ingin hapus barang ini?')\" class='btn btn-danger btn-sm w-50'>Hapus</a>
                     </div>
                 </div>
-            </div>
-            ";
+            </div>";
         }
         echo "</div>";
     }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2025 at 05:01 AM
+-- Generation Time: Jul 26, 2025 at 04:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -57,38 +57,20 @@ CREATE TABLE `barang` (
   `link_lazada` text DEFAULT NULL,
   `link_tokopedia` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `kategori_id` int(11) DEFAULT NULL
+  `kategori_id` int(11) DEFAULT NULL,
+  `promo` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `barang`
 --
 
-INSERT INTO `barang` (`id`, `nama_barang`, `harga`, `stok`, `gambar`, `deskripsi`, `link_shopee`, `link_lazada`, `link_tokopedia`, `created_at`, `kategori_id`) VALUES
-(1, 'Gamis Brokat Premium', 250000, 20, 'gamis1.jpg', 'Gamis brokat dengan bahan premium, nyaman dipakai.', 'https://shopee.co.id/gamis123', 'https://www.lazada.co.id/gamis123', 'https://www.tokopedia.com/gamis123', '2025-07-24 03:49:25', 9),
-(2, 'Hijab Segi Empat', 55000, 40, '2c390b7ee6c6a6858a81034dc0eed93b.jpg', 'Hijab segi empat motif elegan.', 'https://shopee.co.id/hijab123', 'https://www.lazada.co.id/hijab123', 'https://www.tokopedia.com/hijab123', '2025-07-24 03:58:31', 2),
-(3, 'SoftCase Iphone 17 pro max', 600000, 200, 'papan_tulis.png', 'Ini adalah softcase baru', 'https://shopee.co.id/Makanan-Minuman-cat.11043451', 'https://shopee.co.id/Makanan-Minuman-cat.11043451', 'https://shopee.co.id/Makanan-Minuman-cat.11043451', '2025-07-24 04:17:05', 3),
-(4, 'Glasses', 23000, 56, 'papan_tulis.png', 'jskakzkankwdqknxkabxnja', 'https://shopee.co.id/Makanan-Minuman-cat.11043451', 'https://shopee.co.id/Makanan-Minuman-cat.11043451', 'https://shopee.co.id/Makanan-Minuman-cat.11043451', '2025-07-24 04:23:35', 5),
-(5, 'Kacamata Trendy Wanita', 150000, 20, 'kacamata1.jpg', 'Kacamata wanita model kekinian UV protection', 'https://shopee.co.id/kacamata1', 'https://www.lazada.co.id/kacamata1', 'https://www.tokopedia.com/kacamata1', '2025-07-24 05:24:17', 5),
-(6, 'Kacamata Hitam Pria', 175000, 18, 'kacamata2.jpg', 'Kacamata hitam dengan pelindung UV', 'https://shopee.co.id/kacamata2', 'https://www.lazada.co.id/kacamata2', 'https://www.tokopedia.com/kacamata2', '2025-07-24 05:24:17', 5),
-(7, 'Kacamata Retro Wanita', 160000, 22, 'kacamata3.jpg', 'Desain retro cocok untuk gaya vintage', 'https://shopee.co.id/kacamata3', 'https://www.lazada.co.id/kacamata3', 'https://www.tokopedia.com/kacamata3', '2025-07-24 05:24:17', 5),
-(8, 'Kacamata Sporty', 140000, 15, 'kacamata4.jpg', 'Kacamata untuk aktivitas luar ruangan', 'https://shopee.co.id/kacamata4', 'https://www.lazada.co.id/kacamata4', 'https://www.tokopedia.com/kacamata4', '2025-07-24 05:24:17', 5),
-(9, 'Kacamata Frame Transparan', 120000, 25, 'kacamata5.jpg', 'Frame ringan dan stylish', 'https://shopee.co.id/kacamata5', 'https://www.lazada.co.id/kacamata5', 'https://www.tokopedia.com/kacamata5', '2025-07-24 05:24:17', 5),
-(15, 'Hijab Segi Empat Polos', 45000, 30, '5f8ab2944a66493c938c7c6611ec4068.jpg', 'Hijab bahan voal polos adem nyaman', 'https://shopee.co.id/hijab1', 'https://www.lazada.co.id/hijab1', 'https://www.tokopedia.com/hijab1', '2025-07-24 05:24:17', 2),
-(16, 'Hijab Instan Jersey', 50000, 35, 'a098b8861eae7152220fe1319cf96cf7.jpg', 'Hijab instan tanpa jarum dan mudah dipakai', 'https://shopee.co.id/hijab2', 'https://www.lazada.co.id/hijab2', 'https://www.tokopedia.com/hijab2', '2025-07-24 05:24:17', 2),
-(17, 'Hijab Pashmina Ceruty', 55000, 28, 'c6ae9efa799708c6a8b050eb82944717.jpg', 'Pashmina bahan ceruty ringan dan jatuh', 'https://shopee.co.id/hijab3', 'https://www.lazada.co.id/hijab3', 'https://www.tokopedia.com/hijab3', '2025-07-24 05:24:17', 2),
-(18, 'Hijab Polos Ultrafine', 47000, 32, 'e0d3b0ea8a1c01fadadc26f592618d5a.jpg', 'Hijab dengan bahan ultrafine premium', 'https://shopee.co.id/hijab4', 'https://www.lazada.co.id/hijab4', 'https://www.tokopedia.com/hijab4', '2025-07-24 05:24:17', 2),
-(19, 'Hijab Motif Bunga', 60000, 25, 'hijab5.jpg', 'Hijab motif floral untuk gaya feminin', 'https://shopee.co.id/hijab5', 'https://www.lazada.co.id/hijab5', 'https://www.tokopedia.com/hijab5', '2025-07-24 05:24:17', 2),
-(20, 'Dress Wanita Casual', 190000, 10, 'dress1.jpg', 'Dress wanita santai cocok untuk hangout', 'https://shopee.co.id/dress1', 'https://www.lazada.co.id/dress1', 'https://www.tokopedia.com/dress1', '2025-07-24 05:24:17', 4),
-(21, 'Dress A-Line Motif', 225000, 14, 'dress2.jpg', 'Dress A-line dengan motif menarik', 'https://shopee.co.id/dress2', 'https://www.lazada.co.id/dress2', 'https://www.tokopedia.com/dress2', '2025-07-24 05:24:17', 4),
-(22, 'Dress Satin Elegan', 260000, 8, 'dress3.jpg', 'Dress bahan satin untuk acara formal', 'https://shopee.co.id/dress3', 'https://www.lazada.co.id/dress3', 'https://www.tokopedia.com/dress3', '2025-07-24 05:24:17', 4),
-(23, 'Dress Overall Denim', 180000, 13, 'dress4.jpg', 'Dress overall berbahan denim cocok dipadukan inner', 'https://shopee.co.id/dress4', 'https://www.lazada.co.id/dress4', 'https://www.tokopedia.com/dress4', '2025-07-24 05:24:17', 4),
-(24, 'Dress Tunik Motif', 200000, 17, 'dress5.jpg', 'Dress tunik panjang motif etnik', 'https://shopee.co.id/dress5', 'https://www.lazada.co.id/dress5', 'https://www.tokopedia.com/dress5', '2025-07-24 05:24:17', 4),
-(25, 'Anting Fashion Wanita', 25000, 50, 'aksesoris1.jpg', 'Anting lucu dan ringan, cocok untuk daily wear', 'https://shopee.co.id/aksesoris1', 'https://www.lazada.co.id/aksesoris1', 'https://www.tokopedia.com/aksesoris1', '2025-07-24 05:24:17', 3),
-(26, 'Kalung Manik Etnik', 30000, 35, 'aksesoris2.jpg', 'Kalung handmade dengan desain etnik', 'https://shopee.co.id/aksesoris2', 'https://www.lazada.co.id/aksesoris2', 'https://www.tokopedia.com/aksesoris2', '2025-07-24 05:24:17', 3),
-(27, 'Cincin Adjustable', 27000, 40, 'aksesoris3.jpg', 'Cincin model simple bisa disesuaikan ukuran', 'https://shopee.co.id/aksesoris3', 'https://www.lazada.co.id/aksesoris3', 'https://www.tokopedia.com/aksesoris3', '2025-07-24 05:24:17', 3),
-(28, 'Bando Fashion Korea', 20000, 45, 'aksesoris4.jpg', 'Bando lucu ala Korea cocok untuk remaja', 'https://shopee.co.id/aksesoris4', 'https://www.lazada.co.id/aksesoris4', 'https://www.tokopedia.com/aksesoris4', '2025-07-24 05:24:17', 3),
-(29, 'Gelang Handmade', 32000, 28, 'aksesoris5.jpg', 'Gelang cantik handmade dari manik dan tali', 'https://shopee.co.id/aksesoris5', 'https://www.lazada.co.id/aksesoris5', 'https://www.tokopedia.com/aksesoris5', '2025-07-24 05:24:17', 3);
+INSERT INTO `barang` (`id`, `nama_barang`, `harga`, `stok`, `gambar`, `deskripsi`, `link_shopee`, `link_lazada`, `link_tokopedia`, `created_at`, `kategori_id`, `promo`) VALUES
+(31, 'Tas Selempang', 85000, 231, 'Tas.jpg', 'B891 MATERIAL PU SIZE L29XH22XW13CM WEIGHT 850GR COLOR PINK', 'https://shopee.co.id/search?keyword=tas%20selempang%20wanita', 'https://www.lazada.co.id/tag/tas-selempang-wanita-2025/?spm=a2o4j.homepage.search.2.4d5a600dV6ittP&q=tas%20selempang%20wanita%202025&_keyori=ss&clickTrackInfo=abId--378451__textId--6264101581294839793__score--2.7712357__pvid--9cb024eb-4f56-4bb8-888f-8c0353b9e724__matchType--1__matchList--1-3__listNo--0__inputQuery--tas%2Bselempa__srcQuery--tas%20selempang%20wanita%202025__spellQuery--tas%20selempang%20wanita%202025__ctrScore--0.48348993__cvrScore--0.039339364&from=suggest_normal&sugg=tas%20selempang%20wanita%202025_0_1&catalog_redirect_tag=true', 'https://www.tokopedia.com/search?navsource=home&q=tas+selempang+wanita&source=universe&st=product', '2025-07-25 13:08:27', 10, 'Promo'),
+(32, 'Tas Selempang Wanita Import', 112000, 28, 'brd-69012_tas-selempang-wanita-import-px-145-doctors-bag-tas-wanita-import-berkualitas-terbaik_full01.jpg', 'Model : SAS 145\r\nSize : 24,5 x 13 x 17\r\nBahan : PU\r\nBerat : 650 g\r\nAksesoris : TALI PANJANG & GANTUNGANG I LOVE CONY\r\n\r\n⭐ Jual tas selempang, tas pesta, tas wanita, tas kantor\r\n⭐ 100% Import berkualitas\r\n⭐ Semua tas melalui proses pengecekan sebelum dipacking\r\n\r\n- Cocok digunakan untuk berpergian', 'https://shopee.co.id/search?keyword=tas%20selempang%20wanita', 'https://www.lazada.co.id/tag/tas-selempang-wanita-2025/?spm=a2o4j.homepage.search.2.4d5a600dV6ittP&q=tas%20selempang%20wanita%202025&_keyori=ss&clickTrackInfo=abId--378451__textId--6264101581294839793__score--2.7712357__pvid--9cb024eb-4f56-4bb8-888f-8c0353b9e724__matchType--1__matchList--1-3__listNo--0__inputQuery--tas%2Bselempa__srcQuery--tas%20selempang%20wanita%202025__spellQuery--tas%20selempang%20wanita%202025__ctrScore--0.48348993__cvrScore--0.039339364&from=suggest_normal&sugg=tas%20selempang%20wanita%202025_0_1&catalog_redirect_tag=true', 'https://www.tokopedia.com/search?navsource=home&q=tas+selempang+wanita&source=universe&st=product', '2025-07-25 13:13:27', 10, NULL),
+(33, 'Tas Pesta Import', 125000, 190, 'B2946-IDR.156.000-MATERIAL-PU-SIZE-L19XH18XW9CM-WEIGHT-650GR-COLOR-BLUE.jpg', 'B2946 MATERIAL PU SIZE L19XH18XW9CM WEIGHT 650GR COLOR BLUE', 'https://shopee.co.id/search?keyword=tas%20selempang%20wanita', 'https://www.lazada.co.id/tag/tas-selempang-wanita-2025/?spm=a2o4j.homepage.search.2.4d5a600dV6ittP&q=tas%20selempang%20wanita%202025&_keyori=ss&clickTrackInfo=abId--378451__textId--6264101581294839793__score--2.7712357__pvid--9cb024eb-4f56-4bb8-888f-8c0353b9e724__matchType--1__matchList--1-3__listNo--0__inputQuery--tas%2Bselempa__srcQuery--tas%20selempang%20wanita%202025__spellQuery--tas%20selempang%20wanita%202025__ctrScore--0.48348993__cvrScore--0.039339364&from=suggest_normal&sugg=tas%20selempang%20wanita%202025_0_1&catalog_redirect_tag=true', 'https://www.tokopedia.com/search?navsource=home&q=tas+selempang+wanita&source=universe&st=product', '2025-07-25 14:52:10', 10, NULL),
+(34, 'SlingBag', 150000, 50, 'no_brands_tas_selempang_wanita_vb3480_import_slingbag_pesta_bahu_jinjing_handbag_perempuan_tas_kerja_bahan_kulit_croco_kondangan_jakarta_kantor_fashion_cewek_el_full07_pe0hqlo.jpg', '• Kami menyediakan berbagai macam tas import dengan model yang kekinian dan lebih trendy.\r\n• Produk kami berkualitas bagus dengan strandar impor.\r\n• Bahan tas kami terbuat dari bahan asli import dimana bahan tebal dan tidak mudah rusak, jangan mudah tertipu dg tas yg lain foto sama tapi hrg jauh lbh murah karena blm tentu asli import.\r\n• Semua Produk yang dijual Import China & Taiwan (LEBIH AWET)', 'https://shopee.co.id/search?keyword=tas%20selempang%20wanita', 'https://www.lazada.co.id/tag/tas-selempang-wanita-2025/?spm=a2o4j.homepage.search.2.4d5a600dV6ittP&q=tas%20selempang%20wanita%202025&_keyori=ss&clickTrackInfo=abId--378451__textId--6264101581294839793__score--2.7712357__pvid--9cb024eb-4f56-4bb8-888f-8c0353b9e724__matchType--1__matchList--1-3__listNo--0__inputQuery--tas%2Bselempa__srcQuery--tas%20selempang%20wanita%202025__spellQuery--tas%20selempang%20wanita%202025__ctrScore--0.48348993__cvrScore--0.039339364&from=suggest_normal&sugg=tas%20selempang%20wanita%202025_0_1&catalog_redirect_tag=true', 'https://www.tokopedia.com/search?navsource=home&q=tas+selempang+wanita&source=universe&st=product', '2025-07-25 14:55:33', 10, NULL),
+(35, 'Hand Bag', 125000, 23, 'brd-69012_tas-wanita-import-jx-256-lt-1256-handbag-wanita-elegan-tas-wanita-terbaru-berkualitas-terbaik_full01.jpg', 'Kode : LT1256Bahan : PUUkuran : P23XL12XT17CMBerat : 0.6kg Ada Talpan+Gantungan\r\n---------PENTING----------\r\npembelanjaan di atas 1 juta selama 1 bulan di toko kami akan mendapatkan hadiah dan berlaku kelipatan. Ditunggu orderannya ya :)\r\n\r\n----------------------------------------------------------------\r\n- Produk selalu READY STOCK & paling UPDATE :D\r\n- Kami adalah distributor FIRST HAND dengan harga TERMURAH\r\n\r\n----------------------------------------------------------------\r\n\r\nJadwal Pengiriman:\r\nSenin - Sabtu\r\nMinggu dan tanggal merah = LIBUR', 'https://shopee.co.id/search?keyword=tas%20selempang%20wanita', 'https://www.lazada.co.id/tag/tas-selempang-wanita-2025/?spm=a2o4j.homepage.search.2.4d5a600dV6ittP&q=tas%20selempang%20wanita%202025&_keyori=ss&clickTrackInfo=abId--378451__textId--6264101581294839793__score--2.7712357__pvid--9cb024eb-4f56-4bb8-888f-8c0353b9e724__matchType--1__matchList--1-3__listNo--0__inputQuery--tas%2Bselempa__srcQuery--tas%20selempang%20wanita%202025__spellQuery--tas%20selempang%20wanita%202025__ctrScore--0.48348993__cvrScore--0.039339364&from=suggest_normal&sugg=tas%20selempang%20wanita%202025_0_1&catalog_redirect_tag=true', 'https://www.tokopedia.com/search?navsource=home&q=tas+selempang+wanita&source=universe&st=product', '2025-07-25 14:59:54', 10, NULL);
 
 -- --------------------------------------------------------
 
@@ -106,12 +88,12 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`id`, `nama_kategori`) VALUES
-(2, 'Hijab'),
-(3, 'Aksesoris'),
-(4, 'Dress'),
-(5, 'Kacamata'),
-(8, 'tas'),
-(9, 'Gamis');
+(10, 'Tas'),
+(11, 'Jam Tangan'),
+(12, 'Sepatu'),
+(13, 'Sepatu Sandal'),
+(14, 'Baju'),
+(15, 'Mukena');
 
 -- --------------------------------------------------------
 
@@ -139,14 +121,24 @@ INSERT INTO `keuangan` (`id`, `tanggal`, `keterangan`, `nominal`, `jenis`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `video_iklan`
+-- Table structure for table `slider_iklan`
 --
 
-CREATE TABLE `video_iklan` (
+CREATE TABLE `slider_iklan` (
   `id` int(11) NOT NULL,
-  `judul` varchar(255) DEFAULT NULL,
-  `file_video` varchar(255) DEFAULT NULL
+  `judul` varchar(255) NOT NULL,
+  `file_gambar` varchar(255) NOT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `slider_iklan`
+--
+
+INSERT INTO `slider_iklan` (`id`, `judul`, `file_gambar`, `link`, `created_at`) VALUES
+(1, 'Tas Selempang', 'Tas.jpg', NULL, '2025-07-25 13:40:51'),
+(2, 'Tas Selempang Import', 'brd-69012_tas-selempang-wanita-import-px-145-doctors-bag-tas-wanita-import-berkualitas-terbaik_full01.jpg', NULL, '2025-07-25 13:44:54');
 
 --
 -- Indexes for dumped tables
@@ -178,9 +170,9 @@ ALTER TABLE `keuangan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `video_iklan`
+-- Indexes for table `slider_iklan`
 --
-ALTER TABLE `video_iklan`
+ALTER TABLE `slider_iklan`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -197,13 +189,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `keuangan`
@@ -212,10 +204,10 @@ ALTER TABLE `keuangan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `video_iklan`
+-- AUTO_INCREMENT for table `slider_iklan`
 --
-ALTER TABLE `video_iklan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `slider_iklan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
