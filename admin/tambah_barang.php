@@ -49,9 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     .main-content {
-        margin-left: 240px;
-        padding: 40px 20px;
-        min-height: 100vh;
+       padding: 2rem;
     }
 
     .edit-form {

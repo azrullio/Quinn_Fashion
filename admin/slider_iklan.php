@@ -80,76 +80,98 @@ $slider = $conn->query("SELECT * FROM slider_iklan ORDER BY id DESC");
 <?php include 'inc/header.php'; ?>
 <?php include 'inc/sidebar.php'; ?>
 
+<!-- Tambahkan link Bootstrap di head jika belum -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <div class="main-content">
-    <h2>Manajemen Slider Iklan</h2>
+    <h2 class="mb-4">Manajemen Slider Iklan</h2>
 
     <?php if (isset($_GET['success'])): ?>
-        <div style="color: green;">Slider berhasil ditambahkan!</div>
+        <div class="alert alert-success">Slider berhasil ditambahkan!</div>
     <?php elseif (isset($_GET['deleted'])): ?>
-        <div style="color: red;">Slider berhasil dihapus!</div>
+        <div class="alert alert-danger">Slider berhasil dihapus!</div>
     <?php elseif (isset($_GET['edited'])): ?>
-        <div style="color: blue;">Slider berhasil diubah!</div>
+        <div class="alert alert-primary">Slider berhasil diubah!</div>
     <?php endif; ?>
 
     <?php if (isset($error)): ?>
-        <div style="color: red;"><?= htmlspecialchars($error) ?></div>
+        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
-    <form method="POST" enctype="multipart/form-data" style="margin-bottom: 2rem;">
-        <label>Judul Slide</label><br>
-        <input type="text" name="judul" required style="width: 300px; padding: 8px; margin-bottom: 1rem;"><br>
-
-        <label>Upload Gambar (.jpg, .png, .gif)</label><br>
-        <input type="file" name="gambar" accept="image/*" required style="margin-bottom: 1rem;"><br>
-
-        <button type="submit" name="upload" style="padding: 10px 20px;">Tambah Slider</button>
+    <!-- Form Tambah -->
+    <form method="POST" enctype="multipart/form-data" class="mb-4">
+        <div class="mb-3">
+            <label class="form-label">Judul Slide</label>
+            <input type="text" name="judul" required class="form-control" style="max-width: 400px;">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Upload Gambar (.jpg, .png, .gif)</label>
+            <input type="file" name="gambar" accept="image/*" required class="form-control" style="max-width: 400px;">
+        </div>
+        <button type="submit" name="upload" class="btn btn-success">Tambah Slider</button>
     </form>
 
-    <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; max-width: 800px;">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Judul</th>
-                <th>Gambar</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php $no = 1; while ($row = $slider->fetch_assoc()): ?>
+    <!-- Tabel -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-light">
                 <tr>
-                    <td><?= $no++ ?></td>
-                    <td><?= htmlspecialchars($row['judul']) ?></td>
-                    <td><img src="../uploads/<?= htmlspecialchars($row['file_gambar']) ?>" style="max-width: 150px;"></td>
-                    <td>
-                        <a href="#" onclick="editSlider(<?= $row['id'] ?>, '<?= htmlspecialchars(addslashes($row['judul'])) ?>')">Edit</a> |
-                        <a href="?hapus=<?= $row['id'] ?>" onclick="return confirm('Hapus slide ini?')">Hapus</a>
-                    </td>
+                    <th>No</th>
+                    <th>Judul</th>
+                    <th>Gambar</th>
+                    <th>Aksi</th>
                 </tr>
-            <?php endwhile; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php $no = 1; while ($row = $slider->fetch_assoc()): ?>
+                    <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= htmlspecialchars($row['judul']) ?></td>
+                        <td><img src="../uploads/<?= htmlspecialchars($row['file_gambar']) ?>" style="max-width: 150px;" class="img-thumbnail"></td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" onclick="editSlider(<?= $row['id'] ?>, '<?= htmlspecialchars(addslashes($row['judul'])) ?>')" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+                            <a href="?hapus=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Hapus slide ini?')">Hapus</a>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    </div>
 
     <!-- Modal Edit -->
-    <div id="editModal" style="display:none; margin-top: 2rem;">
-        <h3>Edit Slider</h3>
-        <form method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="id" id="editId">
-            <label>Judul</label><br>
-            <input type="text" name="judul" id="editJudul" required style="width: 300px; padding: 8px; margin-bottom: 1rem;"><br>
-
-            <label>Ganti Gambar (opsional)</label><br>
-            <input type="file" name="gambar" accept="image/*" style="margin-bottom: 1rem;"><br>
-
-            <button type="submit" name="edit" style="padding: 10px 20px;">Simpan Perubahan</button>
-            <button type="button" onclick="document.getElementById('editModal').style.display='none'">Batal</button>
-        </form>
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form method="POST" enctype="multipart/form-data">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Slider</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <input type="hidden" name="id" id="editId">
+                  <div class="mb-3">
+                      <label class="form-label">Judul</label>
+                      <input type="text" name="judul" id="editJudul" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                      <label class="form-label">Ganti Gambar (opsional)</label>
+                      <input type="file" name="gambar" class="form-control" accept="image/*">
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" name="edit" class="btn btn-primary">Simpan Perubahan</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+              </div>
+          </form>
+        </div>
+      </div>
     </div>
 </div>
 
 <script>
 function editSlider(id, judul) {
-    document.getElementById('editModal').style.display = 'block';
     document.getElementById('editId').value = id;
     document.getElementById('editJudul').value = judul;
 }
-</script>
+</script>   

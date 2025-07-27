@@ -114,39 +114,80 @@ $barang = mysqli_query($conn, "SELECT barang.*, kategori.nama_kategori FROM bara
     while ($row = mysqli_fetch_assoc($barang)) {
         $kategoriBarang[$row['nama_kategori']][] = $row;
     }
+   
 
     foreach ($kategoriBarang as $kategori => $items) {
         echo "<h4>$kategori</h4>";
         echo "<div class='scrolling-wrapper'>";
         foreach ($items as $row) {
-            echo "<div class='card product-card'>";
-            
-            // Tampilkan badge PROMO jika kolom promo tidak kosong
-            if (!empty(trim($row['promo']))) {
-                echo "<span class='badge-promo'>PROMO</span>";
-            }
+echo "<div class='card product-card'>";
 
-            echo "
-                <img src='img/{$row['gambar']}' class='card-img-top' alt='Gambar'>
-                <span class='badge-kategori'>{$kategori}</span>
-                <div class='card-body'>
-                    <h5 class='card-title text-truncate'>{$row['nama_barang']}</h5>
-                    <p class='card-text mb-1 text-muted'>Rp" . number_format($row['harga'], 0, ',', '.') . "</p>
-                    <p class='card-text mb-1'><strong>Stok:</strong> {$row['stok']}</p>
-                    <p class='card-text small mb-2 text-secondary'>{$row['deskripsi']}</p>
-                    <div class='d-grid gap-2 mb-2'>
-                        <a href='{$row['link_shopee']}' target='_blank' class='btn btn-sm btn-outline-danger'>Shopee</a>
-                        <a href='{$row['link_lazada']}' target='_blank' class='btn btn-sm btn-outline-primary'>Lazada</a>
-                        <a href='{$row['link_tokopedia']}' target='_blank' class='btn btn-sm btn-outline-success'>Tokopedia</a>
-                    </div>
-                    <div class='d-flex justify-content-between'>
-                        <a href='edit_barang.php?id={$row['id']}' class='btn btn-warning btn-sm w-50 me-1'>Edit</a>
-                        <a href='hapus_barang.php?id={$row['id']}' onclick=\"return confirm('Yakin ingin hapus barang ini?')\" class='btn btn-danger btn-sm w-50'>Hapus</a>
-                    </div>
-                </div>
-            </div>";
+// Promo Badge
+if (!empty(trim($row['promo']))) {
+    echo "<span class='badge-promo'>PROMO</span>";
+}
+
+// Gambar
+echo "<img src='img/{$row['gambar']}' class='card-img-top' alt='Gambar'>";
+
+// Kategori
+echo "<span class='badge-kategori'>{$kategori}</span>";
+
+// Mulai card-body
+echo "<div class='card-body'>";
+
+// Nama Barang
+echo "<h5 class='card-title text-truncate'>{$row['nama_barang']}</h5>";
+
+// Harga dan Stok
+echo "<p class='card-text mb-1 text-muted'>Rp" . number_format($row['harga'], 0, ',', '.') . "</p>";
+echo "<p class='card-text mb-1'><strong>Stok:</strong> {$row['stok']}</p>";
+
+// Deskripsi dengan Selengkapnya
+$deskripsi = $row['deskripsi'];
+$potong = mb_substr($deskripsi, 0, 100);
+$panjang = mb_strlen($deskripsi) > 100;
+$id = $row['id'];
+
+echo "<p class='card-text small mb-2 text-secondary'>
+        <span id='short-{$id}'>" . htmlspecialchars($potong) . ($panjang ? '... ' : '') . "</span>";
+
+if ($panjang) {
+    echo "<span id='full-{$id}' style='display:none;'>" . htmlspecialchars($deskripsi) . "</span>
+          <a href='javascript:void(0);' class='text-primary' onclick='toggleDeskripsi({$id})' id='toggle-{$id}'>Selengkapnya</a>";
+}
+
+echo "</p>";
+
+// Tautan Marketplace
+echo "<div class='d-grid gap-2 mb-2'>
+        <a href='{$row['link_shopee']}' target='_blank' class='btn btn-sm btn-outline-danger'>Shopee</a>
+        <a href='{$row['link_lazada']}' target='_blank' class='btn btn-sm btn-outline-primary'>Lazada</a>
+        <a href='{$row['link_tokopedia']}' target='_blank' class='btn btn-sm btn-outline-success'>Tokopedia</a>
+    </div>";
+
+// Tombol Edit dan Hapus
+echo "<div class='d-flex justify-content-between'>
+        <a href='edit_barang.php?id={$row['id']}' class='btn btn-warning btn-sm w-50 me-1'>Edit</a>
+        <a href='hapus_barang.php?id={$row['id']}' onclick=\"return confirm('Yakin ingin hapus barang ini?')\" class='btn btn-danger btn-sm w-50'>Hapus</a>
+    </div>";
+
+// Tutup card-body dan card
+echo "</div></div>";
         }
-        echo "</div>";
     }
     ?>
 </div>
+<script>
+function toggleDeskripsi(id) {
+    const shortText = document.getElementById('short-' + id);
+    const fullText = document.getElementById('full-' + id);
+    const toggleBtn = document.getElementById('toggle-' + id);
+
+    const isExpanded = fullText.style.display === 'inline';
+
+    shortText.style.display = isExpanded ? 'inline' : 'none';
+    fullText.style.display = isExpanded ? 'none' : 'inline';
+    toggleBtn.textContent = isExpanded ? 'Selengkapnya' : 'Sembunyikan';
+}
+</script>

@@ -29,29 +29,42 @@
         font-weight: bold;
     }
 
-    .sidebar a {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: #ccc;
-        text-decoration: none;
-        padding: 15px 25px;
-        transition: 0.3s;
-        font-size: 16px;
-        border-left: 4px solid transparent;
-    }
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ccc;
+    text-decoration: none;
+    padding: 12px 25px;
+    transition: 0.3s;
+    font-size: 16px;
+    border-left: 4px solid transparent;
+    height: 48px; /* Tambahkan tinggi tetap */
+    box-sizing: border-box;
+}
 
-    .sidebar a:hover,
-    .sidebar a.active {
-        background-color: #495057;
-        color: #ffffff;
-        border-left: 4px solid #00d1b2;
-    }
+
+   .sidebar a:hover,
+.sidebar a.active {
+    background-color: #495057;
+    color: #ffffff;
+    border-left: 4px solid #00d1b2;
+}
 
     .sidebar a i {
-        width: 20px;
-        text-align: center;
-    }
+    width: 20px;
+    text-align: center;
+    font-size: 18px;
+    min-width: 20px;
+    height: 20px;
+    line-height: 20px;
+    display: inline-block;
+}
+.sidebar a,
+.sidebar a i {
+    font-weight: normal;
+}
+
 
     .main-content {
         margin-left: 250px;
