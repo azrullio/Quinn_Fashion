@@ -4,10 +4,10 @@ if (!isset($_SESSION['admin'])) {
     header("Location: login.php");
     exit;
 }
-include 'inc/db.php';
-include 'inc/sidebar.php';
 
-$id = intval($_GET['id']); // konversi ke integer
+include 'inc/db.php';
+
+$id = intval($_GET['id']);
 $result = mysqli_query($conn, "SELECT * FROM barang WHERE id=$id");
 $data = mysqli_fetch_assoc($result);
 
@@ -43,9 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         promo='$promo'
     WHERE id=$id");
 
+    // ⛔️ HARUS dilakukan sebelum HTML apa pun muncul!
     header("Location: index.php");
     exit;
 }
+
+// Sidebar dan tampilan HTML hanya ditampilkan jika bukan POST
+include 'inc/sidebar.php';
 ?>
 
 <!-- Bootstrap CDN -->
