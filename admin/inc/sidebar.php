@@ -204,26 +204,26 @@
     }
 </style>
 
-<nav id="sidebar" class="sidebar">
+<div id="sidebar" class="sidebar">
     <div class="sidebar-header">
         <i class="fas fa-store logo-icon"></i>
         <span>Admin Panel</span>
     </div>
     <ul class="nav flex-column">
        <li class="nav-item" data-page="index.php">
-            <a href="#" class="nav-link"><i class="fas fa-th-large"></i> <span>Dashboard</span></a>
+            <a href="index.php" class="nav-link"><i class="fas fa-th-large"></i> <span>Dashboard</span></a>
         </li>
         <li class="nav-item" data-page="kategori.php">
-            <a href="#" class="nav-link"><i class="fas fa-tags"></i> <span>Kategori</span></a>
+            <a href="kategori.php" class="nav-link"><i class="fas fa-tags"></i> <span>Kategori</span></a>
         </li>
         <li class="nav-item" data-page="tambah_barang.php">
-            <a href="#" class="nav-link"><i class="fas fa-plus-square"></i> <span>Tambah Barang</span></a>
+            <a href="tambah_barang.php" class="nav-link"><i class="fas fa-plus-square"></i> <span>Tambah Barang</span></a>
         </li>
         <li class="nav-item" data-page="slider_iklan.php">
-            <a href="#" class="nav-link"><i class="fas fa-images"></i> <span>Slider Iklan</span></a>
+            <a href="slider_iklan.php" class="nav-link"><i class="fas fa-images"></i> <span>Slider Iklan</span></a>
         </li>
         <li class="nav-item" data-page="keuangan.php">
-            <a href="#" class="nav-link"><i class="fas fa-wallet"></i> <span>Keuangan</span></a>
+            <a href="keuangan.php" class="nav-link"><i class="fas fa-wallet"></i> <span>Keuangan</span></a>
         </li>
     </ul>
     <ul class="logout">
@@ -231,4 +231,4 @@
             <a href="logout.php" class="nav-link" onclick="return confirm('Apakah Anda yakin ingin logout?')"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
         </li>
     </ul>
-</nav>
+</div>

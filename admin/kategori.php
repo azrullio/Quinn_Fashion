@@ -1,202 +1,296 @@
 <?php
-// kategori.php
-// File ini hanya berisi konten yang akan dimuat ke index.php via AJAX.
-// Tidak ada header, sidebar, atau footer di sini.
-session_start(); // Tetap butuh session untuk pesan feedback
-
+session_start();
 if (!isset($_SESSION['admin'])) {
-    // Jika diakses langsung tanpa AJAX dan belum login, redirect ke login
-    // Ini adalah fallback, idealnya tidak akan diakses langsung lagi
     header("Location: login.php");
     exit;
 }
-include 'inc/db.php'; // Tetap butuh koneksi database
 
-// Inisialisasi pesan (dari session jika ada, atau kosong)
-$message = '';
-$message_type = '';
-if (isset($_SESSION['message'])) {
-    $message = $_SESSION['message'];
-    $message_type = $_SESSION['message_type'];
-    unset($_SESSION['message']);
-    unset($_SESSION['message_type']);
-}
+// Cek apakah ada pesan sukses dari penghapusan
+$pesan_hapus = "";
 
-// Handle add category
-if (isset($_POST['tambah_kategori'])) {
-    $nama_kategori = trim($_POST['nama_kategori'] ?? '');
+include 'inc/db.php';
 
-    if (!empty($nama_kategori)) {
-        $stmt = mysqli_prepare($conn, "INSERT INTO kategori (nama_kategori) VALUES (?)");
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "s", $nama_kategori);
-            if (mysqli_stmt_execute($stmt)) {
-                $_SESSION['message'] = "Kategori '<b>" . htmlspecialchars($nama_kategori) . "</b>' berhasil ditambahkan!";
-                $_SESSION['message_type'] = "success";
-            } else {
-                $_SESSION['message'] = "Gagal menambahkan kategori: " . mysqli_error($conn);
-                $_SESSION['message_type'] = "danger";
-                error_log("Failed to add category: " . mysqli_error($conn));
-            }
-            mysqli_stmt_close($stmt);
-        } else {
-            $_SESSION['message'] = "Terjadi kesalahan sistem saat menyiapkan query.";
-            $_SESSION['message_type'] = "danger";
-            error_log("Prepare statement error for INSERT category: " . mysqli_error($conn));
-        }
+// Tambah kategori
+if (isset($_POST['tambah'])) {
+    $nama = trim($_POST['nama']);
+    $cek = mysqli_query($conn, "SELECT * FROM kategori WHERE nama_kategori='$nama'");
+    if (mysqli_num_rows($cek) == 0) {
+        mysqli_query($conn, "INSERT INTO kategori (nama_kategori) VALUES ('$nama')");
+        header("Location: kategori.php?add=1");
     } else {
-        $_SESSION['message'] = "Nama kategori tidak boleh kosong.";
-        $_SESSION['message_type'] = "danger";
+        header("Location: kategori.php?exists=1");
     }
-    // Karena ini diakses via AJAX, tidak perlu header redirect,
-    // pesan akan diambil di reload AJAX berikutnya atau ditampilkan langsung.
-    // Untuk konsistensi, tetap pakai session agar bisa diambil di load berikutnya.
+    exit;
 }
 
-// Handle delete category
+// Hapus kategori
 if (isset($_GET['hapus'])) {
-    $id_kategori = filter_var($_GET['hapus'], FILTER_VALIDATE_INT);
-
-    if ($id_kategori === false) {
-        $_SESSION['message'] = "ID kategori tidak valid.";
-        $_SESSION['message_type'] = "danger";
-    } else {
-        $stmt_check_barang = mysqli_prepare($conn, "SELECT COUNT(*) FROM barang WHERE kategori_id = ?");
-        if ($stmt_check_barang) {
-            mysqli_stmt_bind_param($stmt_check_barang, "i", $id_kategori);
-            mysqli_stmt_execute($stmt_check_barang);
-            mysqli_stmt_bind_result($stmt_check_barang, $count_barang);
-            mysqli_stmt_fetch($stmt_check_barang);
-            mysqli_stmt_close($stmt_check_barang);
-
-            if ($count_barang > 0) {
-                $_SESSION['message'] = "Kategori tidak bisa dihapus karena masih ada <b>" . $count_barang . " barang</b> yang terkait dengan kategori ini. Harap hapus atau ubah kategori barang tersebut terlebih dahulu.";
-                $_SESSION['message_type'] = "warning";
-            } else {
-                $stmt_get_name = mysqli_prepare($conn, "SELECT nama_kategori FROM kategori WHERE id = ?");
-                if ($stmt_get_name) {
-                    mysqli_stmt_bind_param($stmt_get_name, "i", $id_kategori);
-                    mysqli_stmt_execute($stmt_get_name);
-                    $result_name = mysqli_stmt_get_result($stmt_get_name);
-                    $row_name = mysqli_fetch_assoc($result_name);
-                    $deleted_name = $row_name ? htmlspecialchars($row_name['nama_kategori']) : "Tidak Dikenal";
-                    mysqli_stmt_close($stmt_get_name);
-
-                    $stmt_delete = mysqli_prepare($conn, "DELETE FROM kategori WHERE id = ?");
-                    if ($stmt_delete) {
-                        mysqli_stmt_bind_param($stmt_delete, "i", $id_kategori);
-                        if (mysqli_stmt_execute($stmt_delete)) {
-                            if (mysqli_stmt_affected_rows($stmt_delete) > 0) {
-                                $_SESSION['message'] = "Kategori '<b>" . $deleted_name . "</b>' berhasil dihapus!";
-                                $_SESSION['message_type'] = "danger";
-                            } else {
-                                $_SESSION['message'] = "Kategori tidak ditemukan atau sudah dihapus.";
-                                $_SESSION['message_type'] = "info";
-                            }
-                        } else {
-                            $_SESSION['message'] = "Gagal menghapus kategori: " . mysqli_error($conn);
-                            $_SESSION['message_type'] = "danger";
-                            error_log("Failed to delete category: " . mysqli_error($conn));
-                        }
-                        mysqli_stmt_close($stmt_delete);
-                    } else {
-                        $_SESSION['message'] = "Terjadi kesalahan sistem saat menyiapkan query penghapusan.";
-                        $_SESSION['message_type'] = "danger";
-                        error_log("Prepare statement error for DELETE category: " . mysqli_error($conn));
-                    }
-                } else {
-                     $_SESSION['message'] = "Terjadi kesalahan sistem saat mengambil nama kategori.";
-                    $_SESSION['message_type'] = "danger";
-                }
-            }
-        } else {
-            $_SESSION['message'] = "Terjadi kesalahan sistem saat memeriksa keterkaitan barang.";
-            $_SESSION['message_type'] = "danger";
-            error_log("Prepare statement error for checking related items: " . mysqli_error($conn));
-        }
-    }
+    $id = intval($_GET['hapus']);
+    mysqli_query($conn, "DELETE FROM kategori WHERE id=$id");
+    header("Location: kategori.php?hapus=1");
+    exit;
 }
 
-// Handle edit category
-if (isset($_POST['edit_kategori'])) {
-    $id = filter_var($_POST['id_kategori'], FILTER_VALIDATE_INT);
-    $nama_kategori_baru = trim($_POST['nama_kategori_baru'] ?? '');
-
-    if ($id === false || empty($nama_kategori_baru)) {
-        $_SESSION['message'] = "ID kategori atau nama kategori tidak valid.";
-        $_SESSION['message_type'] = "danger";
-    } else {
-        $stmt = mysqli_prepare($conn, "UPDATE kategori SET nama_kategori = ? WHERE id = ?");
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "si", $nama_kategori_baru, $id);
-            if (mysqli_stmt_execute($stmt)) {
-                if (mysqli_stmt_affected_rows($stmt) > 0) {
-                    $_SESSION['message'] = "Kategori berhasil diubah menjadi '<b>" . htmlspecialchars($nama_kategori_baru) . "</b>'.";
-                    $_SESSION['message_type'] = "info";
-                } else {
-                    $_SESSION['message'] = "Tidak ada perubahan pada kategori atau kategori tidak ditemukan.";
-                    $_SESSION['message_type'] = "info";
-                }
-            } else {
-                $_SESSION['message'] = "Gagal mengubah kategori: " . mysqli_error($conn);
-                $_SESSION['message_type'] = "danger";
-                error_log("Failed to update category: " . mysqli_error($conn));
-            }
-            mysqli_stmt_close($stmt);
-        } else {
-            $_SESSION['message'] = "Terjadi kesalahan sistem saat menyiapkan query.";
-            $_SESSION['message_type'] = "danger";
-            error_log("Prepare statement error for UPDATE category: " . mysqli_error($conn));
-        }
-    }
-}
-
-
-// Ambil semua kategori untuk ditampilkan
-$query_kategori = "SELECT * FROM kategori ORDER BY nama_kategori ASC";
-$stmt_kategori = mysqli_prepare($conn, $query_kategori);
-$kategori_result = false;
-if ($stmt_kategori) {
-    mysqli_stmt_execute($stmt_kategori);
-    $kategori_result = mysqli_stmt_get_result($stmt_kategori);
-    mysqli_stmt_close($stmt_kategori);
-} else {
-    error_log("Error preparing category select statement: " . mysqli_error($conn));
-    // Jika ada error di sini, set pesan error untuk ditampilkan
-    $message = "Gagal mengambil data kategori.";
-    $message_type = "danger";
-}
+// Ambil semua kategori
+$kategori = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori ASC");
 ?>
-
-<h2 class="kategori-title"><i class="fas fa-tags"></i> Manajemen Kategori</h2>
-
-<?php if ($message): ?>
-    <div class="alert alert-custom alert-<?= $message_type ?>" role="alert">
-        <?php if ($message_type == 'success'): ?>
-            <i class="fas fa-check-circle"></i>
-        <?php elseif ($message_type == 'danger'): ?>
-            <i class="fas fa-exclamation-triangle"></i>
-        <?php elseif ($message_type == 'warning'): ?>
-            <i class="fas fa-exclamation-circle"></i>
-        <?php elseif ($message_type == 'info'): ?>
-            <i class="fas fa-info-circle"></i>
-        <?php endif; ?>
-        <?= $message ?>
-    </div>
+<?php if (isset($_GET['add'])) echo "<p class='message success'>Kategori berhasil ditambahkan!</p>"; ?>
+<?php if (isset($_GET['hapus'])) echo "<p class='message error'>Kategori berhasil dihapus!</p>"; ?>
+<?php if (isset($_GET['exists'])) echo "<p class='message warning'>Kategori sudah ada!</p>"; ?>
+<?php if (isset($_SESSION['hapus_berhasil'])): ?>
+    <div class="alert error">🗑️ Kategori berhasil dihapus!</div>
+    <?php unset($_SESSION['hapus_berhasil']); ?>
 <?php endif; ?>
 
-<form method="POST" class="form-add-category">
-    <h5 class="mb-3 text-primary"><i class="fas fa-plus-circle"></i> Tambah Kategori Baru</h5>
-    <div class="mb-3">
-        <label for="nama_kategori" class="form-label">Nama Kategori</label>
-        <input type="text" name="nama_kategori" id="nama_kategori" class="form-control" required maxlength="100">
-    </div>
-    <button type="submit" name="tambah_kategori" class="btn btn-success"><i class="fas fa-plus-square me-2"></i>Tambah Kategori</button>
-</form>
+<?php include 'inc/header.php'; ?>
+<?php include 'inc/sidebar.php'; ?>
 
-<div class="table-responsive">
-    <table class="table table-bordered table-hover align-middle">
-        <thead class="table-light">
+<style>
+    .main-content {
+        padding: 2rem;
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f9f9f9;
+    }
+
+    .main-content h2 {
+        font-size: 28px;
+        margin-bottom: 1.5rem;
+        color: #333;
+    }
+
+    .alert {
+        padding: 10px 15px;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+        font-weight: bold;
+    }
+
+    .success {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .error {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .warning {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    form {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 2rem;
+    }
+
+    form input[type="text"] {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+    }
+
+    form button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    form button:hover {
+        background-color: #45a049;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    table th {
+        background-color: #4CAF50;
+        color: white;
+        text-align: left;
+        padding: 12px;
+    }
+
+    table td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    table a {
+        color: #d32f2f;
+        text-decoration: none;
+    }
+
+    table a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f1f4f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    .main-content {
+        padding: 2.5rem;
+        background: #f9f9f9;
+        min-height: 100vh;
+    }
+
+    h2 {
+        font-size: 32px;
+        margin-bottom: 1.5rem;
+        color: #333;
+        font-weight: bold;
+        border-left: 6px solid #198754;
+        padding-left: 1rem;
+    }
+
+    .alert {
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .success {
+        background-color: #d1f0d4;
+        color: #256029;
+    }
+
+    .error {
+        background-color: #fbd6d6;
+        color: #842029;
+    }
+
+    .warning {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 2rem;
+        align-items: center;
+    }
+
+    form input[type="text"] {
+        flex: 1;
+        padding: 12px 16px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        background-color: #fff;
+        transition: 0.3s ease;
+    }
+
+    form input[type="text"]:focus {
+        outline: none;
+        border-color: #198754;
+        box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+    }
+
+    form button {
+        background-color: #198754;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+    }
+
+    form button:hover {
+        background-color: #157347;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    table th {
+        background: linear-gradient(to right, #198754, #28a745);
+        color: white;
+        text-align: left;
+        padding: 14px 16px;
+        font-weight: 600;
+    }
+
+    table td {
+        padding: 14px 16px;
+        border-bottom: 1px solid #eee;
+        font-size: 15px;
+    }
+
+    table tr:last-child td {
+        border-bottom: none;
+    }
+
+    table tr:hover {
+        background-color: #f6f6f6;
+    }
+
+    table a {
+        color: #dc3545;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.2s;
+    }
+
+    table a:hover {
+        color: #a71d2a;
+        text-decoration: underline;
+    }
+</style>
+
+<div class="main-content">
+    <h2>Manajemen Kategori</h2>
+
+    <?php if (isset($_GET['add'])): ?>
+        <div class="alert success">✅ Kategori berhasil ditambahkan!</div>
+    <?php endif; ?>
+    <?php if (isset($_GET['hapus'])): ?>
+        <div class="alert error">🗑️ Kategori berhasil dihapus!</div>
+    <?php endif; ?>
+    <?php if (isset($_GET['exists'])): ?>
+        <div class="alert warning">⚠️ Kategori sudah ada!</div>
+    <?php endif; ?>
+
+    <form method="POST">
+        <input type="text" name="nama" placeholder="Contoh: Dress, Hijab, Atasan" required>
+        <button name="tambah">+ Tambah Kategori</button>
+    </form>
+
+    <table>
+        <thead>
             <tr>
                 <th>No</th>
                 <th>Nama Kategori</th>
@@ -204,66 +298,16 @@ if ($stmt_kategori) {
             </tr>
         </thead>
         <tbody>
-            <?php $no = 1; ?>
-            <?php if ($kategori_result && mysqli_num_rows($kategori_result) > 0) : ?>
-                <?php while ($row = mysqli_fetch_assoc($kategori_result)) : ?>
-                    <tr>
-                        <td><?= $no++ ?></td>
-                        <td><?= htmlspecialchars($row['nama_kategori']) ?></td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-primary" onclick="editKategori(<?= $row['id'] ?>, '<?= htmlspecialchars(addslashes($row['nama_kategori'])) ?>')" data-bs-toggle="modal" data-bs-target="#editModal">
-                                <i class="fas fa-edit me-1"></i>Edit
-                            </button>
-                            <a href="?hapus=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus kategori &quot;<?= htmlspecialchars($row['nama_kategori']) ?>&quot;? Jika ada barang yang menggunakan kategori ini, penghapusan akan gagal.')">
-                                <i class="fas fa-trash-alt me-1"></i>Hapus
-                            </a>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            <?php else : ?>
-                <tr>
-                    <td colspan="3" class="text-center">Belum ada kategori.</td>
-                </tr>
-            <?php endif; ?>
+            <?php $no = 1; while ($row = mysqli_fetch_assoc($kategori)) : ?>
+            <tr>
+                <td><?= $no++ ?></td>
+                <td><?= htmlspecialchars($row['nama_kategori']) ?></td>
+                <td>
+                    <a href="hapus_kategori.php?id=<?= $row['id'] ?>" onclick="return confirm('Hapus kategori ini?')">Hapus</a>
+                </td>
+            </tr>
+            <?php endwhile; ?>
         </tbody>
     </table>
 </div>
 
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="POST">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel"><i class="fas fa-edit me-2"></i>Edit Kategori</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="id_kategori" id="editIdKategori">
-                    <div class="mb-3">
-                        <label for="nama_kategori_baru" class="form-label">Nama Kategori Baru</label>
-                        <input type="text" name="nama_kategori_baru" id="editNamaKategori" class="form-control" required maxlength="100">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" name="edit_kategori" class="btn btn-primary"><i class="fas fa-save me-2"></i>Simpan Perubahan</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times me-2"></i>Batal</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<script>
-    // Fungsi ini harus dideklarasikan secara global atau di dalam scope yang dapat diakses oleh HTML yang dimuat
-    function editKategori(id, nama) {
-        document.getElementById('editIdKategori').value = id;
-        document.getElementById('editNamaKategori').value = nama;
-    }
-
-    // Panggil ulang Bootstrap Modal jika HTML dimuat secara dinamis
-    // Ini juga bisa dilakukan di index.php setelah loadContent
-    // let editModalElement = document.getElementById('editModal');
-    // if (editModalElement) {
-    //     new bootstrap.Modal(editModalElement);
-    // }
-</script>

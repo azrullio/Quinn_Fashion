@@ -6,8 +6,9 @@ if (!isset($_SESSION['admin'])) {
     exit;
 }
 include 'inc/db.php';
+include "inc/sidebar.php";
 
-$query_kategori = "SELECT id, nama_kategori FROM kategori ORDER BY nama_kategori ASC";
+$query_kategori = "SELECT * FROM kategori ORDER BY nama_kategori ASC";
 $stmt_kategori = mysqli_prepare($conn, $query_kategori);
 if ($stmt_kategori) {
     mysqli_stmt_execute($stmt_kategori);
