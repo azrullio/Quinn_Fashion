@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Quinn Fashion Footer</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
@@ -57,13 +57,13 @@
           <h4>Official Store</h4>
           <div class="store-logos">
             <a href="https://shopee.co.id/" target="_blank" aria-label="Shopee Official Store">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Shopee_logo_white.png" alt="Shopee Logo" />
+              <img src="shoope.jpg" alt="Shopee Logo" />
             </a>
             <a href="https://www.lazada.co.id/" target="_blank" aria-label="Lazada Official Store">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Lazada_Logo_2023.png" alt="Lazada Logo" />
+              <img src="lazada.jpg" alt="Lazada Logo" />
             </a>
             <a href="https://www.tokopedia.com/" target="_blank" aria-label="Tokopedia Official Store">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tokopedia_Logo.svg/2560px-Tokopedia_Logo.svg.png" alt="Tokopedia Logo" />
+              <img src="tokopedia.jpg" alt="Tokopedia Logo" />
             </a>
           </div>
         </div>
@@ -205,40 +205,49 @@
     line-height: 1.5;
   }
 
-  .store-logos {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
+.store-logos {
+  display: flex;
+  flex-direction: row; /* jejer ke samping */
+  gap: 1rem;
+  overflow-x: auto; /* biar bisa geser di mobile */
+  padding-bottom: 1rem;
+  scrollbar-width: thin;
+}
 
-  .store-logos a {
-    display: block;
-    padding: 0.5rem;
-    text-decoration: none;
-    transition: transform 0.2s ease-in-out;
-    line-height: 1;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    border: 1px solid #e5e5e5;
-  }
+.store-logos a {
+  display: block;
+  text-decoration: none;
+  transition: transform 0.2s ease-in-out;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e5e5e5;
+  padding: 0.5rem;
+  min-width: fit-content;
+}
 
-  .store-logos a:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
+.store-logos a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
 
-  .store-logos img {
-    width: 90px;
-    height: auto;
-    display: block;
-    max-width: 100%;
-    filter: brightness(0.8) contrast(1.1);
-    transition: filter 0.2s ease;
-  }
+.store-logos img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%; /* lingkaran sempurna */
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: block;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
 
-  .store-logos a:hover img {
-    filter: brightness(1) contrast(1.2);
-  }
+.store-logos a:hover img {
+  filter: brightness(1) contrast(1.2);
+}
+
+
+
+
 
   /* Footer Copyright - Background Ungu */
   .footer-copyright {
@@ -268,17 +277,47 @@
       margin-top: 2.5rem; /* Margin di mobile lebih kecil */
     }
 
+    /* ===== MODIFIKASI BAGIAN FOOTER MOBILE SCROLLING ===== */
     .footer-container {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1.5rem; /* Jarak antar bagian utama dikurangi */
+      flex-wrap: nowrap !important; /* Jangan wrap */
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 0.8rem;
+      gap: 1.2rem !important;
+    }
+
+    .footer-container::-webkit-scrollbar {
+      display: none;
     }
 
     .footer-profile {
-      width: 100%;
-      min-width: unset;
-      padding: 0 0.5rem;
+      flex: 0 0 auto !important;
+      min-width: 250px !important;
+      padding-left: 0.5rem;
     }
+
+    .footer-links {
+      flex-wrap: nowrap !important;
+      gap: 1rem !important;
+      padding-left: 0.5rem;
+    }
+
+    .footer-links > div {
+      flex: 0 0 auto !important;
+      min-width: 220px !important;
+      max-width: 220px !important;
+      padding: 0 0.3rem;
+      scroll-snap-align: start;
+    }
+
+    .footer-links > div:first-child {
+      padding-left: 0.5rem;
+    }
+
+    .footer-links > div:last-child {
+      padding-right: 0.5rem;
+    }
+    /* ===== END MODIFIKASI FOOTER MOBILE SCROLLING ===== */
 
     .footer-profile h3 {
       font-size: 1.2rem; /* Ukuran judul profil dikurangi */
@@ -300,38 +339,6 @@
       width: 30px; /* Ukuran ikon sosmed dikurangi */
       height: 30px;
       font-size: 1rem;
-    }
-
-    .footer-links {
-      width: 100%;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      padding: 0.4rem 0; /* Padding vertikal dikurangi */
-      -webkit-overflow-scrolling: touch;
-      margin-top: 0.8rem;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      gap: 1.2rem; /* Jarak antar kolom link dikurangi */
-    }
-
-    .footer-links::-webkit-scrollbar {
-      display: none;
-    }
-
-    .footer-links > div {
-      flex: 0 0 auto;
-      min-width: 55%; /* Kolom link dibuat sedikit lebih kecil agar lebih banyak terlihat */
-      max-width: 65%;
-      scroll-snap-align: start;
-      padding: 0 0.5rem;
-    }
-
-    .footer-links > div:first-child {
-      padding-left: 0.5rem;
-    }
-
-    .footer-links > div:last-child {
-      padding-right: 0.5rem;
     }
 
     .footer-links h4 {
@@ -367,6 +374,84 @@
     }
   }
 </style>
+
+<!-- Tombol Chat WhatsApp -->
+<a href="#" class="chat-float" onclick="handleChatClick(event)">
+  <i class="fas fa-comment-dots"></i>
+</a>
+<div class="chat-hint" id="chatHint">Chat via WhatsApp</div>
+
+<!-- Styles -->
+<style>
+  .chat-float {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background: white;
+    color: #357ABD;
+    border-radius: 50%;
+    border: 2px solid #357ABD;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    font-size: 26px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    z-index: 1000;
+    transition: 0.3s ease;
+    cursor: pointer; /* ✅ Penting: agar ada pointer saat diarahkan */
+  }
+
+  .chat-float:hover {
+    background-color: #357ABD;
+    color: white;
+  }
+
+  .chat-hint {
+    position: fixed;
+    bottom: 95px;
+    right: 25px;
+    background: #ffffff;
+    color: #333;
+    padding: 10px 14px;
+    border: 1px solid #357ABD;
+    border-radius: 10px;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 999;
+    pointer-events: none; /* biar tidak bisa diklik */
+  }
+
+  .chat-hint.show {
+    display: block;
+    opacity: 1;
+  }
+</style>
+
+<!-- Font Awesome Icon -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+<!-- Script -->
+<script>
+  function handleChatClick(event) {
+    event.preventDefault();
+    const hint = document.getElementById("chatHint");
+
+    // Tampilkan teks "Chat via WhatsApp"
+    hint.classList.add("show");
+
+    // Setelah 1.5 detik, buka link WA
+    setTimeout(() => {
+      hint.classList.remove("show");
+      window.open("https://wa.me/6281234567890", "_blank"); // ← Ganti nomor WA kamu di sini
+    }, 1500);
+  }
+</script>
 
 </body>
 </html>
