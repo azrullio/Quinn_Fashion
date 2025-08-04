@@ -30,9 +30,10 @@ $kategori = mysqli_query($conn, "SELECT id AS kategori_id, nama_kategori FROM ka
                 <input type="text" name="q" class="form-control me-2" placeholder="Cari produk..." value="<?= htmlspecialchars($search) ?>">
                 <input type="hidden" name="kategori_id" value="<?= htmlspecialchars($kategori_filter) ?>" />
                 <button class="btn btn-search" type="submit">Cari</button>
-                <button id="darkToggle" class="btn toggle-theme-btn" aria-label="Toggle dark mode" type="button">
-                    <i id="themeIcon" class="fa-solid fa-moon"></i>
-                </button>
+                <button id="darkToggle">
+  <i id="themeIcon" class="fa-solid fa-moon"></i>
+</button>
+
             </form>
         </div>
     </header>
