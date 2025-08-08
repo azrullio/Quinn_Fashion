@@ -118,6 +118,150 @@ $slider = $conn->query("SELECT * FROM slider_iklan ORDER BY id DESC");
 <?php include 'inc/header.php'; ?>
 <?php include 'inc/sidebar.php'; ?>
 
+
+<style>
+    /* General Body and Main Content Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Makes the body a flex container for sidebar and main content */
+}
+
+.main-content {
+    padding: 20px;
+    flex-grow: 1; /* Allows the main content to take up the remaining space */
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+h2, h3 {
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+/* Forms */
+form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #555;
+}
+
+input[type="text"],
+input[type="file"] {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding doesn't affect total width */
+}
+
+button {
+    background-color: #1a365d;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1a365d;
+}
+
+a.cancel-button {
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+    margin-left: 10px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+a.cancel-button:hover {
+    background-color: #e9e9e9;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+img {
+    max-width: 150px;
+    height: auto;
+    display: block; /* Removes extra space below the image */
+}
+
+/* Action Links (Edit/Delete) */
+td a {
+    text-decoration: none;
+    color: #007bff;
+    margin-right: 10px;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+/* Notification/Error Messages */
+div[style*="color: green;"] {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+div[style*="color: red;"] {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+</style>
 <div class="main-content">
     <h2>Manajemen Slider Iklan</h2>
 

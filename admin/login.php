@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            background-image: url('ozer-guzel-Ikm0XCSZmwY-unsplash.jpg');
+            background-color: #1a365d; /* Updated background color */
             background-size: cover;
             background-position: center;
         }
@@ -88,17 +88,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .inputbox input {
-    width: 100%;
-    height: 40px;
-    background: transparent; /* Membuat latar belakang transparan */
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    padding: 0 35px 0 5px;
-    color: #fff;
-    backdrop-filter: none; /* pastikan tidak menyebabkan kotak putih */
-}
-
+            width: 100%;
+            height: 40px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            padding: 0 35px 0 5px;
+            color: #fff;
+            backdrop-filter: none;
+        }
 
         .inputbox ion-icon {
             position: absolute;
@@ -107,11 +106,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-size: 1.2rem;
             top: 10px;
         }
+
         input:-webkit-autofill {
-    background: transparent !important;
-    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
-    -webkit-text-fill-color: #fff !important;
-}
+            background: transparent !important;
+            -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+            -webkit-text-fill-color: #fff !important;
+        }
 
         .forget {
             display: flex;

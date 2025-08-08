@@ -94,7 +94,7 @@ $kategori = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori A
     }
 
     form button {
-        background-color: #4CAF50;
+        background-color: #1a365d;
         color: white;
         padding: 10px 20px;
         border: none;
@@ -117,7 +117,7 @@ $kategori = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori A
     }
 
     table th {
-        background-color: #4CAF50;
+        background-color: #1a365d;
         color: white;
         text-align: left;
         padding: 12px;
@@ -142,134 +142,6 @@ $kategori = mysqli_query($conn, "SELECT * FROM kategori ORDER BY nama_kategori A
     }
 </style>
 
-<style>
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background-color: #f1f4f9;
-        margin: 0;
-        padding: 0;
-    }
-
-    .main-content {
-        padding: 2.5rem;
-        background: #f9f9f9;
-        min-height: 100vh;
-    }
-
-    h2 {
-        font-size: 32px;
-        margin-bottom: 1.5rem;
-        color: #333;
-        font-weight: bold;
-        border-left: 6px solid #198754;
-        padding-left: 1rem;
-    }
-
-    .alert {
-        padding: 15px 20px;
-        border-radius: 8px;
-        margin-bottom: 1.5rem;
-        font-weight: 500;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-
-    .success {
-        background-color: #d1f0d4;
-        color: #256029;
-    }
-
-    .error {
-        background-color: #fbd6d6;
-        color: #842029;
-    }
-
-    .warning {
-        background-color: #fff3cd;
-        color: #856404;
-    }
-
-    form {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-bottom: 2rem;
-        align-items: center;
-    }
-
-    form input[type="text"] {
-        flex: 1;
-        padding: 12px 16px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 16px;
-        background-color: #fff;
-        transition: 0.3s ease;
-    }
-
-    form input[type="text"]:focus {
-        outline: none;
-        border-color: #198754;
-        box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
-    }
-
-    form button {
-        background-color: #198754;
-        color: white;
-        padding: 12px 24px;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: 0.3s ease-in-out;
-    }
-
-    form button:hover {
-        background-color: #157347;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background: white;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-        border-radius: 12px;
-        overflow: hidden;
-    }
-
-    table th {
-        background: linear-gradient(to right, #198754, #28a745);
-        color: white;
-        text-align: left;
-        padding: 14px 16px;
-        font-weight: 600;
-    }
-
-    table td {
-        padding: 14px 16px;
-        border-bottom: 1px solid #eee;
-        font-size: 15px;
-    }
-
-    table tr:last-child td {
-        border-bottom: none;
-    }
-
-    table tr:hover {
-        background-color: #f6f6f6;
-    }
-
-    table a {
-        color: #dc3545;
-        text-decoration: none;
-        font-weight: bold;
-        transition: color 0.2s;
-    }
-
-    table a:hover {
-        color: #a71d2a;
-        text-decoration: underline;
-    }
-</style>
 
 <div class="main-content">
     <h2>Manajemen Kategori</h2>

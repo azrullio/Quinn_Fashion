@@ -23,16 +23,24 @@ $kategori = mysqli_query($conn, "SELECT id AS kategori_id, nama_kategori FROM ka
 
 <body>
 
-    <header class="main-header">
-        <div class="container d-flex justify-content-between align-items-center">
-            <h1 class="welcome-text mb-0">Selamat Datang di Quinn Fashion</h1>
-            <form method="GET" class="search-form d-flex" action="index.php">
-                <input type="text" name="q" class="form-control me-2" placeholder="Cari produk..." value="<?= htmlspecialchars($search) ?>">
-                <input type="hidden" name="kategori_id" value="<?= htmlspecialchars($kategori_filter) ?>" />
-                <button class="btn btn-search" type="submit">Cari</button>
-                <button id="darkToggle">
-  <i id="themeIcon" class="fa-solid fa-moon"></i>
-</button>
+   <header class="main-header">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-2">
+            <!-- Logo lingkaran -->
+            <div class="logo-wrapper">
+                <img src="logo web.jpg" alt="Quinn Fashion Logo" class="logo-img">
+            </div>
+            <!-- Teks Selamat Datang -->
+            <h1 class="welcome-text mb-0">Quinn Fashion</h1>
+        </div>
+
+        <form method="GET" class="search-form d-flex" action="index.php">
+            <input type="text" name="q" class="form-control me-2" placeholder="Cari produk..." value="<?= htmlspecialchars($search) ?>">
+            <input type="hidden" name="kategori_id" value="<?= htmlspecialchars($kategori_filter) ?>" />
+            <button class="btn btn-search" type="submit">Cari</button>
+            <button id="darkToggle">
+                <i id="themeIcon" class="fa-solid fa-moon"></i>
+            </button>
 
             </form>
         </div>
@@ -70,40 +78,41 @@ $kategori = mysqli_query($conn, "SELECT id AS kategori_id, nama_kategori FROM ka
     <!-- SCRIPT DARK MODE -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const toggleBtn = document.getElementById("darkToggle");
-    const icon = document.getElementById("themeIcon");
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const toggleBtn = document.getElementById("darkToggle");
+            const icon = document.getElementById("themeIcon");
 
-    function updateIcon() {
-        if (document.body.classList.contains("dark-mode")) {
-            icon.setAttribute("class", "fa-solid fa-sun");
-        } else {
-            icon.setAttribute("class", "fa-solid fa-moon");
-        }
-    }
+            function updateIcon() {
+                if (document.body.classList.contains("dark-mode")) {
+                    icon.setAttribute("class", "fa-solid fa-sun");
+                } else {
+                    icon.setAttribute("class", "fa-solid fa-moon");
+                }
+            }
 
-    // Cek localStorage dan atur mode awal
-    if (localStorage.getItem("theme") === "dark") {
-        document.body.classList.add("dark-mode");
-    }
+            // Cek localStorage dan atur mode awal
+            if (localStorage.getItem("theme") === "dark") {
+                document.body.classList.add("dark-mode");
+            }
 
-    // Set ikon awal sesuai mode
-    updateIcon();
+            // Set ikon awal sesuai mode
+            updateIcon();
 
-    // Event tombol klik untuk toggle
-    toggleBtn.addEventListener("click", function () {
-        document.body.classList.toggle("dark-mode");
+            // Event tombol klik untuk toggle
+            toggleBtn.addEventListener("click", function() {
+                document.body.classList.toggle("dark-mode");
 
-        // Simpan preferensi ke localStorage
-        const newTheme = document.body.classList.contains("dark-mode") ? "dark" : "light";
-        localStorage.setItem("theme", newTheme);
+                // Simpan preferensi ke localStorage
+                const newTheme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+                localStorage.setItem("theme", newTheme);
 
-        // Update ikon
-        updateIcon();
-    });
-});
-</script>
+                // Update ikon
+                updateIcon();
+            });
+        });
+    </script>
 
 </body>
+
 </html>

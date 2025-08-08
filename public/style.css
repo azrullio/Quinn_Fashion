@@ -273,18 +273,47 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--neutral-dark);
 }
 
-/* Header Styling - Unified for Both Pages */
+/* Header Styling - FIXED PADDING AND LAYOUT */
 .main-header {
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   color: var(--neutral-light);
   box-shadow: 0 8px 32px var(--shadow-medium);
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
-  padding: 1.5rem 0;
+  padding: 2rem 0;
   position: sticky;
   top: 0;
   z-index: 1000;
   backdrop-filter: blur(10px);
+}
+
+.main-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+.main-header .header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+
+.main-header .header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-header .header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
 }
 
 .main-header .welcome-text {
@@ -293,14 +322,18 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   color: var(--neutral-light);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 0;
+  margin: 0;
   letter-spacing: -0.02em;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 .main-header .search-form {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  max-width: 500px;
+  width: 100%;
 }
 
 .main-header .search-form .form-control {
@@ -313,7 +346,8 @@ h1, h2, h3, h4, h5, h6 {
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   font-weight: 400;
-  min-width: 250px;
+  flex: 1;
+  min-width: 0;
 }
 
 .main-header .search-form .form-control::placeholder {
@@ -325,6 +359,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--neutral-dark);
   border-color: var(--accent-color);
   box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.2);
+  outline: none;
 }
 
 .main-header .search-form .btn-search {
@@ -338,6 +373,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .main-header .search-form .btn-search:hover {
@@ -346,7 +382,43 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 6px 20px rgba(229, 62, 62, 0.4);
 }
 
-/* Dark Mode Toggle Button - Improved Styling */
+/* Logo Styling - FIXED PADDING AND SIZING */
+.logo-wrapper {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+  border-radius: 50%;
+}
+
+.logo-wrapper:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.logo-wrapper:hover .logo-img {
+  transform: scale(1.1);
+}
+
+/* Dark Mode Toggle Button - IMPROVED STYLING */
 #darkToggle {
   border: none;
   background: rgba(255, 255, 255, 0.15);
@@ -366,7 +438,8 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-left: 0.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
 }
 
 #darkToggle::before {
@@ -385,7 +458,8 @@ h1, h2, h3, h4, h5, h6 {
 #darkToggle:hover {
   background: rgba(255, 255, 255, 0.25);
   transform: scale(1.05) rotate(5deg);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px rgba(94, 93, 93, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 #darkToggle:hover::before {
@@ -412,14 +486,16 @@ h1, h2, h3, h4, h5, h6 {
 /* Dark mode specific styling */
 body.dark-mode #darkToggle {
   background: rgba(255, 255, 255, 0.1);
-  color: #ffffff; /* Golden yellow for sun icon */
-  box-shadow: 0 4px 12px rgb(0, 0, 0);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgb(71, 71, 71);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 body.dark-mode #darkToggle:hover {
   background: rgba(255, 255, 255, 0.2);
-  color: #ffffff; /* Darker yellow on hover */
+  color: #ffffff;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 body.dark-mode #darkToggle i {
@@ -429,7 +505,7 @@ body.dark-mode #darkToggle i {
 
 /* Light mode specific styling */
 body:not(.dark-mode) #darkToggle {
-  color: #e2e8f0; /* Light blue-gray for moon icon */
+  color: #e2e8f0;
 }
 
 body:not(.dark-mode) #darkToggle:hover {
@@ -441,69 +517,14 @@ body:not(.dark-mode) #darkToggle i {
   text-shadow: 0 0 8px rgba(226, 232, 240, 0.2);
 }
 
-/* Mobile responsive adjustments */
-@media (max-width: 768px) {
-  #darkToggle {
-    width: 42px;
-    height: 42px;
-    font-size: 1.1rem;
-    padding: 10px;
-    margin-left: 0.25rem;
-  }
-  
-  #darkToggle i {
-    font-size: 1rem;
-  }
+/* Dark mode logo styling */
+body.dark-mode .logo-wrapper {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
 }
 
-@media (max-width: 576px) {
-  #darkToggle {
-    width: 38px;
-    height: 38px;
-    font-size: 1rem;
-    padding: 8px;
-  }
-  
-  #darkToggle i {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 374px) {
-  #darkToggle {
-    width: 36px;
-    height: 36px;
-    font-size: 0.9rem;
-    padding: 7px;
-  }
-  
-  #darkToggle i {
-    font-size: 0.85rem;
-  }
-}
-
-/* Focus state for accessibility */
-#darkToggle:focus {
-  outline: 2px solid var(--secondary-color);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 4px rgba(229, 62, 62, 0.2);
-}
-
-/* Reduced motion accessibility */
-@media (prefers-reduced-motion: reduce) {
-  #darkToggle,
-  #darkToggle i,
-  #darkToggle::before {
-    transition: none !important;
-  }
-  
-  #darkToggle:hover {
-    transform: none !important;
-  }
-  
-  #darkToggle:active i {
-    transform: none !important;
-  }
+body.dark-mode .logo-wrapper:hover {
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .toggle-theme-btn i {
@@ -576,7 +597,6 @@ body:not(.dark-mode) #darkToggle i {
   left: 0;
   width: 100%;
   height: 100%;
-  /* Mengganti warna solid menjadi gradasi vertikal */
   background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
   z-index: 10;
   border-radius: inherit;
@@ -695,74 +715,136 @@ body.dark-mode .btn-outline-dark {
   background: transparent;
 }
 body.dark-mode .btn-outline-dark:hover {
-  background-color: var(--neutral-medium); /* Menggunakan warna netral-medium */
+  background-color: var(--neutral-medium);
   color: var(--neutral-light);
   border-color: var(--neutral-medium);
 }
-/* AKHIR PERBAIKAN */
 
-/* IMPROVED MOBILE RESPONSIVENESS */
+/* MOBILE RESPONSIVENESS - HEADER AND LOGO FIXES */
 
-/* Tablet Responsiveness */
-@media (max-width: 992px) {
+/* Large Tablet */
+@media (max-width: 1024px) {
+  .main-header .container {
+    gap: 1.5rem;
+    padding: 0 1.5rem;
+  }
+  
   .main-header .welcome-text {
     font-size: 1.6rem;
   }
-  .container {
-    padding-left: 15px;
-    padding-right: 15px;
+  
+  .logo-wrapper {
+    width: 70px;
+    height: 70px;
+  }
+  
+  #darkToggle {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .main-header {
+    padding: 1.5rem 0;
+  }
+  
+  .main-header .container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+  
+  .main-header .header-left,
+  .main-header .header-right {
+    order: 1;
+  }
+  
+  .main-header .header-center {
+    order: 2;
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .main-header .welcome-text {
+    font-size: 1.5rem;
+  }
+  
+  .logo-wrapper {
+    width: 65px;
+    height: 65px;
+  }
+  
+  #darkToggle {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
   }
 }
 
 /* Mobile Landscape and Portrait */
 @media (max-width: 768px) {
-  .container {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  /* Header Mobile */
   .main-header {
     border-radius: 0 0 16px 16px;
-    padding: 1rem 0;
+    padding: 1.25rem 0;
   }
-
+  
   .main-header .container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 0 1rem;
     gap: 1rem;
   }
-
+  
+  .main-header .header-left {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .main-header .header-center {
+    width: 100%;
+  }
+  
   .main-header .welcome-text {
     font-size: 1.4rem;
+    flex: 1;
   }
-
+  
   .main-header .search-form {
-    width: 100%;
-    display: flex;
     gap: 0.5rem;
   }
-
+  
   .main-header .search-form .form-control {
-    flex: 1;
     padding: 10px 16px;
     border-radius: 20px;
     font-size: 0.9rem;
-    min-width: unset;
   }
-
+  
   .main-header .search-form .btn-search {
     padding: 10px 20px;
     border-radius: 20px;
     font-size: 0.9rem;
-    flex-shrink: 0;
+  }
+  
+  .logo-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+  
+  #darkToggle {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    padding: 10px;
+  }
+  
+  #darkToggle i {
+    font-size: 1rem;
   }
 
-  .toggle-theme-btn {
-    width: 42px;
-    height: 42px;
-    font-size: 1.1rem;
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 
   /* Category Filter Mobile - HORIZONTAL SCROLL */
@@ -897,31 +979,45 @@ body.dark-mode .btn-outline-dark:hover {
 
 /* Small Mobile */
 @media (max-width: 576px) {
-  .container {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  /* Header Small Mobile */
   .main-header {
     border-radius: 0;
-    padding: 0.75rem 0;
+    padding: 1rem 0;
   }
-
+  
+  .main-header .container {
+    padding: 0 0.75rem;
+    gap: 0.75rem;
+  }
+  
   .main-header .welcome-text {
     font-size: 1.2rem;
   }
-
+  
   .main-header .search-form .form-control,
   .main-header .search-form .btn-search {
     padding: 8px 12px;
     font-size: 0.85rem;
   }
-
-  .toggle-theme-btn {
+  
+  .logo-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+  
+  #darkToggle {
     width: 38px;
     height: 38px;
     font-size: 1rem;
+    padding: 8px;
+  }
+  
+  #darkToggle i {
+    font-size: 0.9rem;
+  }
+
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   /* Category Filter Small Mobile */
@@ -1015,13 +1111,33 @@ body.dark-mode .btn-outline-dark:hover {
 
 /* Extra Small Mobile */
 @media (max-width: 374px) {
+  .main-header .container {
+    padding: 0 0.5rem;
+  }
+  
+  .main-header .welcome-text {
+    font-size: 1.1rem;
+  }
+  
+  .logo-wrapper {
+    width: 45px;
+    height: 45px;
+  }
+  
+  #darkToggle {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+    padding: 7px;
+  }
+  
+  #darkToggle i {
+    font-size: 0.85rem;
+  }
+
   .container {
     padding-left: 8px;
     padding-right: 8px;
-  }
-
-  .main-header .welcome-text {
-    font-size: 1.1rem;
   }
 
   .category-filter .btn-group {
@@ -1047,11 +1163,39 @@ body.dark-mode .btn-outline-dark:hover {
     padding: 1rem 0.5rem;
     margin: 0.25rem;
   }
+}
 
-  .toggle-theme-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 0.9rem;
+/* Focus state for accessibility */
+#darkToggle:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(229, 62, 62, 0.2);
+}
+
+.logo-wrapper:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(229, 62, 62, 0.2);
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  #darkToggle,
+  #darkToggle i,
+  #darkToggle::before,
+  .logo-wrapper,
+  .logo-img {
+    transition: none !important;
+  }
+  
+  #darkToggle:hover,
+  .logo-wrapper:hover {
+    transform: none !important;
+  }
+  
+  #darkToggle:active i,
+  .logo-wrapper:hover .logo-img {
+    transform: none !important;
   }
 }
 
@@ -1074,6 +1218,18 @@ body.dark-mode .btn-outline-dark:hover {
   .category-filter .btn {
     min-height: 44px;
     padding: 12px 16px;
+  }
+  
+  .logo-wrapper:hover {
+    transform: none;
+  }
+  
+  .logo-wrapper:hover .logo-img {
+    transform: none;
+  }
+  
+  #darkToggle:hover {
+    transform: none;
   }
 }
 

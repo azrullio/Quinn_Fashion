@@ -14,7 +14,7 @@
         position: fixed; /* Fixed position, stay in place when scrolling */
         top: 0;
         left: 0;
-        background-color: #343a40; /* Dark background color */
+        background-color: #1a365d; /* Dark background color */
         padding-top: 20px;
         color: #f8f9fa; /* Light text color */
         box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Subtle shadow */
@@ -78,7 +78,7 @@
     }
 
     .sidebar .logout a {
-        color: #ffc107; /* Warning color for logout */
+        color: #ffffffff; /* Warning color for logout */
     }
 
     .sidebar .logout a:hover {
