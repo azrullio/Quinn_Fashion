@@ -1,5 +1,5 @@
 <?php
-include '../admin/inc/db.php';
+include 'admin/inc/db.php';
 
 // Ambil query pencarian dan filter kategori dari URL sebelum include header
 $search = isset($_GET['q']) ? trim($_GET['q']) : '';
@@ -36,14 +36,14 @@ $produk = mysqli_query($conn, $sql_barang);
 // Query slider video iklan
 $slider = mysqli_query($conn, "SELECT * FROM slider_iklan ORDER BY id DESC LIMIT 5");
 ?>
-
+<link rel="stylesheet" href="public/style.css">
 <div id="carouselIklan" class="carousel slide mb-5" data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="false">
     <div class="carousel-inner">
         <?php $active = 'active'; ?>
         <?php while ($s = $slider->fetch_assoc()) : ?>
             <div class="carousel-item <?= $active ?>">
                 <div class="dark-overlay"></div>
-                <img src="../uploads/<?= htmlspecialchars($s['file_gambar']) ?>" class="d-block w-100 rounded" alt="<?= htmlspecialchars($s['judul']) ?>">
+                <img src="uploads/<?= htmlspecialchars($s['file_gambar']) ?>" class="d-block w-100 rounded" alt="<?= htmlspecialchars($s['judul']) ?>">
             </div>
             <?php $active = ''; ?>
         <?php endwhile; ?>
@@ -64,7 +64,7 @@ $slider = mysqli_query($conn, "SELECT * FROM slider_iklan ORDER BY id DESC LIMIT
                     <?php if (!empty(trim($p['promo']))) : ?>
                         <span class="promo-badge">PROMO</span>
                     <?php endif; ?>
-                    <img src="../admin/img/<?= htmlspecialchars($p['gambar']) ?>"
+                    <img src="admin/img/<?= htmlspecialchars($p['gambar']) ?>"
                         onerror="this.onerror=null;this.src='default.jpg';"
                         class="card-img-top" alt="<?= htmlspecialchars($p['nama_barang']) ?>">
 

@@ -1,5 +1,5 @@
 <?php
-include '../admin/inc/db.php';
+include 'admin/inc/db.php';
 include 'header.php';
 
 $id = intval($_GET['id'] ?? 0);
@@ -26,14 +26,14 @@ $produk_rekomendasi = $conn->query("
     LIMIT 6
 ");
 ?>
-
+<link rel="stylesheet" href="public/style.css">
 <div class="container my-5 product-detail-container">
     <div class="row">
         <div class="col-md-6 text-center" style="position: relative;">
             <?php if (!empty(trim($data['promo']))) : ?>
                 <span class="promo-badge">PROMO</span>
             <?php endif; ?>
-            <img src="../admin/img/<?= htmlspecialchars($data['gambar']) ?>"
+            <img src="admin/img/<?= htmlspecialchars($data['gambar']) ?>"
                 alt="<?= htmlspecialchars($data['nama_barang']) ?>"
                 onerror="this.onerror=null;this.src='default.jpg';"
                 class="img-fluid mb-3 rounded shadow-sm product-detail-image">
@@ -77,7 +77,7 @@ $produk_rekomendasi = $conn->query("
                         <?php if (!empty(trim($rec['promo']))) : ?>
                             <span class="promo-badge">PROMO</span>
                         <?php endif; ?>
-                        <img src="../admin/img/<?= htmlspecialchars($rec['gambar']) ?>" 
+                        <img src="admin/img/<?= htmlspecialchars($rec['gambar']) ?>" 
                              alt="<?= htmlspecialchars($rec['nama_barang']) ?>" 
                              class="card-img-top"
                              onerror="this.onerror=null;this.src='default.jpg';">

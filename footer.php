@@ -63,13 +63,13 @@
           <h4>Official Store</h4>
           <div class="store-logos">
             <a href="https://shopee.co.id/" target="_blank" aria-label="Shopee Official Store">
-              <img src="shoope.jpg" alt="Shopee Logo" />
+              <img src="public/shoope.jpg" alt="Shopee Logo" />
             </a>
             <a href="https://www.lazada.co.id/" target="_blank" aria-label="Lazada Official Store">
-              <img src="lazada.jpg" alt="Lazada Logo" />
+              <img src="public/lazada.jpg" alt="Lazada Logo" />
             </a>
             <a href="https://www.tokopedia.com/" target="_blank" aria-label="Tokopedia Official Store">
-              <img src="tokopedia.jpg" alt="Tokopedia Logo" />
+              <img src="public/tokopedia.jpg" alt="Tokopedia Logo" />
             </a>
           </div>
         </div>

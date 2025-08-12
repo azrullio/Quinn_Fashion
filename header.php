@@ -1,5 +1,5 @@
 <?php
-include '../admin/inc/db.php';
+include 'admin/inc/db.php';
 
 // Ambil query pencarian dan filter kategori dari URL
 $search = isset($_GET['q']) ? trim($_GET['q']) : '';
@@ -28,7 +28,7 @@ $kategori = mysqli_query($conn, "SELECT id AS kategori_id, nama_kategori FROM ka
         <div class="d-flex align-items-center gap-2">
             <!-- Logo lingkaran -->
             <div class="logo-wrapper">
-                <img src="logo web.jpg" alt="Quinn Fashion Logo" class="logo-img">
+                <img src="public/logo web.jpg" alt="Quinn Fashion Logo" class="logo-img">
             </div>
             <!-- Teks Selamat Datang -->
             <h1 class="welcome-text mb-0">Quinn Fashion</h1>
